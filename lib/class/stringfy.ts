@@ -1339,6 +1339,20 @@ export class Stringfy {
       }
       case 'ConditionExtend':
         if (notFirst) {
+          if (param1.targetKind) {
+            return this.stringfyMaxStrengthCount(
+              this.getWithTargetAndConditionTargetAndPercent(
+                'ability_description_common_content_condition_extend',
+                param1,
+                param1.data,
+                threshold,
+                false
+              ),
+              limit,
+              true,
+              threshold
+            );
+          }
           return this.stringfyMaxStrengthCount(
             this.getWithConditionTargetAndPercent(
               'ability_description_common_content_condition_extend_minimal',
@@ -1352,9 +1366,8 @@ export class Stringfy {
           );
         }
         return this.stringfyMaxStrengthCount(
-          this.getWithTargetAndConditionTargetAndPercent(
-            'ability_description_common_content_condition_extend',
-            param1,
+          this.getWithConditionTargetAndPercent(
+            'ability_description_common_content_condition_extend_minimal',
             param1.data,
             threshold,
             false

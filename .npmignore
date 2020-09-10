@@ -7,3 +7,6 @@ bin/
 .git*
 .prettier*
 jest*
+
+lib/**/*.ts
+!lib/**/*.d.ts

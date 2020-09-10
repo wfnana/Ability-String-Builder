@@ -876,3 +876,28 @@ export const EnemyLow = [
     }
   }
 ];
+
+export const ConditionPiercing = [
+  {
+    id: 2610054,
+    stringId: 'warlock_4',
+    unisonable: true,
+    statueGroupId: 'condition',
+    trigger: {
+      type: 'Instant',
+      precondition: {
+        type: 'Always'
+      },
+      instantTrigger: {
+        type: 'Initial'
+      },
+      instantContent: {
+        type: 'PiercingExtend',
+        strength: {
+          power1: 0.075,
+          firstMax: 0.15
+        }
+      }
+    }
+  }
+];

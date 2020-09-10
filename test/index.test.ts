@@ -2,6 +2,7 @@ import { AbilityStringBuilder } from '../lib';
 import { Container } from '../lib/class/container';
 import {
   ComplimentOiran,
+  ConditionPiercing,
   DuringHPLow,
   EnemyDamage,
   EnemyLow,
@@ -128,5 +129,11 @@ describe('index', function () {
     const grouped = builder.groupByTrigger(EnemyLow);
     const result = builder.stringfy(grouped);
     expect(result).toEqual('敵が 1 体以下の間、自身の攻撃力 + 60 %');
+  });
+
+  it('ConditionPiercing - warlock', function () {
+    const grouped = builder.groupByTrigger(ConditionPiercing);
+    const result = builder.stringfy(grouped);
+    expect(result).toEqual('貫通効果の効果時間 + 15 %');
   });
 });
