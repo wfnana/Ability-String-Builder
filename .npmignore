@@ -1,0 +1,9 @@
+test/
+bin/
+.vscode/
+.github/
+
+.eslint*
+.git*
+.prettier*
+jest*
