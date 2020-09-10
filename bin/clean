@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd ./lib && find . -name "*.js" -type f -delete && find . -name "*.map" -type f -delete && find . -name "*.d.ts" -type f -delete && cd ..
+cd ./test && find . -name "*.js" -type f -delete && find . -name "*.map" -type f -delete && find . -name "*.d.ts" -type f -delete && cd ..

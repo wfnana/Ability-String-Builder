@@ -1,0 +1,39 @@
+{
+  "name": "@wfnana/ability-string-builder",
+  "version": "1.0.0",
+  "description": "Ability Parser",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "clean": ". bin/clean",
+    "lint": "eslint --fix --ext .ts lib test",
+    "build": "tsc -b",
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wfnana/ability-string-builder.git"
+  },
+  "author": "KaKa",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.3.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.4",
+    "typescript": "^3.9.7"
+  }
+}
