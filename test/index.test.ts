@@ -6,6 +6,7 @@ import {
   DuringHPLow,
   EnemyDamage,
   EnemyLow,
+  FeverPoint,
   LampGuideLeader,
   MiaLeaderAbility,
   MultiDuringWithSlash,
@@ -57,7 +58,7 @@ describe('index', function () {
     const grouped = builder.groupByTrigger(SecondSkillGuage);
     const result = builder.stringfy(grouped);
     expect(result).toEqual(
-      '自身が火属性キャラである度、スキルがヒットする度、自身の攻撃力 + 1 %[最大 + 120 % ] ／ 自身がスキルを発動する度、火属性キャラのスキルダメージ + 30 %[最大 + 120 % ] ／ 自身が火属性キャラである度、自身 のスキルゲージ最大値 + 40 % '
+      '自身が火属性キャラである時、スキルがヒットする度、自身の攻撃力 + 1 %[最大 + 120 % ] ／ 自身がスキルを発動する度、火属性キャラのスキルダメージ + 30 %[最大 + 120 % ] ／ 自身が火属性キャラである時、自身のスキルゲージ最大値 + 40 % '
     );
   });
 
@@ -135,5 +136,13 @@ describe('index', function () {
     const grouped = builder.groupByTrigger(ConditionPiercing);
     const result = builder.stringfy(grouped);
     expect(result).toEqual('貫通効果の効果時間 + 15 %');
+  });
+
+  it('FeverPoint - pirates_girl_smr20', function () {
+    const grouped = builder.groupByTrigger(FeverPoint);
+    const result = builder.stringfy(grouped);
+    expect(result).toEqual(
+      '自身が水属性キャラである時、自身の攻撃によるフィーバーゲージ上昇率 + 75 % ／ リーダーである時、自身の攻撃力 + 30 %'
+    );
   });
 });

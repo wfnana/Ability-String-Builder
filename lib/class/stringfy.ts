@@ -929,10 +929,10 @@ export class Stringfy {
         );
         break;
     }
-    const read = !!param7
+    const real = !!param7
       ? this.getUiString('ability_description_only_real')
       : '';
-    return read + count + str + conj;
+    return real + count + str + conj;
   }
 
   stringfyInstantTriggerBattle(
@@ -948,7 +948,7 @@ export class Stringfy {
           param1.computeThreshold(this.level),
           param1.triggerLimit,
           false,
-          !!param1.triggerLimit
+          false
         );
       case 'CharacterCount':
         return this.stringfyInstantTriggerCharacterCount(
@@ -958,7 +958,7 @@ export class Stringfy {
           param2,
           false,
           target,
-          !!param1.triggerLimit
+          false
         );
       case 'Combo':
         return this.stringfyInstantTriggerCombo(
@@ -4308,5 +4308,14 @@ export class Stringfy {
 
   getUiString(id: string): string {
     return this.container.getUiString(id);
+  }
+
+  // TODO:
+  shouldCountOnlyReal(content: InstantContent | DuringContent): boolean {
+    const type = content.convert('InstantAbilityContent');
+    switch (type) {
+      default:
+        return false;
+    }
   }
 }

@@ -901,3 +901,57 @@ export const ConditionPiercing = [
     }
   }
 ];
+
+export const FeverPoint = [
+  {
+    id: 2230011,
+    stringId: 'pirates_girl_smr20_1',
+    unisonable: true,
+    statueGroupId: 'fever',
+    trigger: {
+      type: 'Instant',
+      precondition: {
+        type: 'MySelf',
+        characterGroups: ['Blue']
+      },
+      instantTrigger: {
+        type: 'Initial'
+      },
+      instantContent: {
+        type: 'FeverPoint',
+        target: {
+          type: 'Myself'
+        },
+        strength: {
+          power1: 0.375,
+          firstMax: 0.75
+        }
+      }
+    }
+  },
+  {
+    id: 2230011,
+    stringId: 'pirates_girl_smr20_1',
+    unisonable: true,
+    statueGroupId: 'fever',
+    trigger: {
+      type: 'Instant',
+      precondition: {
+        type: 'Always'
+      },
+      instantTrigger: {
+        type: 'Leader'
+      },
+      instantContent: {
+        type: 'AttackPoint',
+        target: {
+          type: 'Myself'
+        },
+        strength: {
+          power1: 0.15,
+          firstMax: 0.3
+        }
+      }
+    }
+  }
+];

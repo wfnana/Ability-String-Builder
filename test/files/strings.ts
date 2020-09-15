@@ -328,7 +328,7 @@ export const ja = {
   ability_description_common_content_condition_extend_minimal:
     '::condition::の効果時間 ::percent_up_down::',
   ability_description_common_content_second_skill_gauge:
-    '::target:: のスキルゲージ最大値 ::percent_up_down:: ',
+    '::target::のスキルゲージ最大値 ::percent_up_down:: ',
   ability_description_common_content_second_skill_gauge_minimal:
     'スキルゲージ最大値 ::percent_up_down:: ',
   ability_description_instant_content_coffin_base_count_down:
