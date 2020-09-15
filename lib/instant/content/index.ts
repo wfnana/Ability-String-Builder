@@ -8,6 +8,7 @@ export class InstantContent extends Transform {
   strength?: AbilityThreshold;
   frame?: AbilityThreshold;
   flipLimit?: number;
+  maxAccumulation?: number;
   characterGroups?: Array<string>;
 
   constructor(data: AbilityInstantContent) {
@@ -18,6 +19,7 @@ export class InstantContent extends Transform {
     this.strength = data.strength;
     this.frame = data.frame;
     this.flipLimit = data.flipLimit;
+    this.maxAccumulation = data.maxAccumulation;
     this.characterGroups = data.characterGroups;
   }
 
