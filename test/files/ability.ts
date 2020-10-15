@@ -18,8 +18,8 @@ export const SingleInstant = [
           type: 'Party'
         },
         strength: {
-          power1: 0.05,
-          firstMax: 0.1
+          power1: 5000,
+          firstMax: 10000
         }
       }
     }
@@ -44,8 +44,8 @@ export const MultiInstantWithSlash = [
           characterGroups: ['Blue']
         },
         threshold: {
-          power1: 1,
-          firstMax: 1
+          power1: 100000,
+          firstMax: 100000
         },
         triggerLimit: 5
       },
@@ -55,8 +55,8 @@ export const MultiInstantWithSlash = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.1,
-          firstMax: 0.2
+          power1: 10000,
+          firstMax: 20000
         }
       }
     }
@@ -78,8 +78,8 @@ export const MultiInstantWithSlash = [
           characterGroups: ['Blue']
         },
         threshold: {
-          power1: 1,
-          firstMax: 1
+          power1: 100000,
+          firstMax: 100000
         }
       },
       instantContent: {
@@ -88,8 +88,8 @@ export const MultiInstantWithSlash = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.05,
-          firstMax: 0.1
+          power1: 5000,
+          firstMax: 10000
         }
       }
     }
@@ -113,8 +113,8 @@ export const MultiInstantWithAnd = [
           type: 'Myself'
         },
         threshold: {
-          power1: 1,
-          firstMax: 1
+          power1: 100000,
+          firstMax: 100000
         }
       },
       instantContent: {
@@ -124,8 +124,8 @@ export const MultiInstantWithAnd = [
           characterGroups: ['Red']
         },
         strength: {
-          power1: 0.05,
-          firstMax: 0.1
+          power1: 5000,
+          firstMax: 10000
         }
       }
     }
@@ -146,8 +146,8 @@ export const MultiInstantWithAnd = [
           type: 'Myself'
         },
         threshold: {
-          power1: 1,
-          firstMax: 1
+          power1: 100000,
+          firstMax: 100000
         },
         triggerLimit: 3
       },
@@ -158,8 +158,8 @@ export const MultiInstantWithAnd = [
           characterGroups: ['Red']
         },
         strength: {
-          power1: 0.025,
-          firstMax: 0.05
+          power1: 2500,
+          firstMax: 5000
         }
       }
     }
@@ -184,8 +184,8 @@ export const MultiDuringWithSlash = [
           characterGroups: ['Blue']
         },
         threshold: {
-          power1: 0.8,
-          firstMax: 0.8
+          power1: 80000,
+          firstMax: 80000
         }
       },
       duringContent: {
@@ -194,8 +194,8 @@ export const MultiDuringWithSlash = [
           type: 'TriggerPuller'
         },
         strength: {
-          power1: 0.15,
-          firstMax: 0.3
+          power1: 15000,
+          firstMax: 30000
         }
       }
     }
@@ -217,8 +217,8 @@ export const MultiDuringWithSlash = [
           characterGroups: ['Blue']
         },
         threshold: {
-          power1: 0.8,
-          firstMax: 0.8
+          power1: 80000,
+          firstMax: 80000
         }
       },
       duringContent: {
@@ -227,8 +227,8 @@ export const MultiDuringWithSlash = [
           type: 'TriggerPuller'
         },
         strength: {
-          power1: 0.3,
-          firstMax: 0.6
+          power1: 30000,
+          firstMax: 60000
         }
       }
     }
@@ -247,13 +247,19 @@ export const SecondSkillGuage = [
       instantTrigger: {
         type: 'SkillHit',
         triggerPuller: { type: 'Myself' },
-        threshold: { power1: 1, firstMax: 1 },
+        threshold: {
+          power1: 100000,
+          firstMax: 100000
+        },
         triggerLimit: 120
       },
       instantContent: {
         type: 'AttackPoint',
         target: { type: 'Myself' },
-        strength: { power1: 0.0025, firstMax: 0.01 }
+        strength: {
+          power1: 250,
+          firstMax: 1000
+        }
       }
     }
   },
@@ -268,13 +274,19 @@ export const SecondSkillGuage = [
       instantTrigger: {
         type: 'SkillInvoke',
         triggerPuller: { type: 'Myself' },
-        threshold: { power1: 1, firstMax: 1 },
+        threshold: {
+          power1: 100000,
+          firstMax: 100000
+        },
         triggerLimit: 4
       },
       instantContent: {
         type: 'SkillDamage',
         target: { type: 'Party', characterGroups: ['Red'] },
-        strength: { power1: 0.075, firstMax: 0.3 }
+        strength: {
+          power1: 7500,
+          firstMax: 30000
+        }
       }
     }
   },
@@ -290,7 +302,10 @@ export const SecondSkillGuage = [
       instantContent: {
         type: 'SecondSkillGauge',
         target: { type: 'Myself' },
-        strength: { power1: 0.1, firstMax: 0.4 }
+        strength: {
+          power1: 10000,
+          firstMax: 40000
+        }
       }
     }
   }
@@ -310,16 +325,16 @@ export const NegativeCount = [
       instantTrigger: {
         type: 'ComboDisplay',
         threshold: {
-          power1: 50,
-          firstMax: 50
+          power1: 5000000,
+          firstMax: 5000000
         },
         triggerLimit: 10
       },
       instantContent: {
         type: 'PowerFlipLv3DamageSlayer',
         strength: {
-          power1: 0.025,
-          firstMax: 0.05
+          power1: 2500,
+          firstMax: 5000
         }
       }
     }
@@ -340,8 +355,8 @@ export const NegativeCount = [
       instantContent: {
         type: 'PowerFlipComboCountDown',
         strength: {
-          power1: -20,
-          firstMax: -10
+          power1: -2000000,
+          firstMax: -1000000
         }
       }
     }
@@ -369,8 +384,8 @@ export const ComplimentOiran = [
           characterGroups: ['Red']
         },
         strength: {
-          power1: 0.25,
-          firstMax: 0.3
+          power1: 25000,
+          firstMax: 30000
         }
       }
     }
@@ -394,8 +409,8 @@ export const ComplimentOiran = [
           type: 'Multiball'
         },
         strength: {
-          power1: 1.05,
-          firstMax: 1.5
+          power1: 105000,
+          firstMax: 150000
         }
       }
     }
@@ -419,8 +434,8 @@ export const ComplimentOiran = [
           type: 'Multiball'
         },
         strength: {
-          power1: 0.2,
-          firstMax: 0.25
+          power1: 20000,
+          firstMax: 25000
         }
       }
     }
@@ -440,7 +455,10 @@ export const EnemyDamage = [
       instantContent: {
         type: 'Hp',
         target: { type: 'Myself' },
-        strength: { power1: 0.1, firstMax: 0.2 }
+        strength: {
+          power1: 10000,
+          firstMax: 20000
+        }
       }
     }
   },
@@ -455,12 +473,18 @@ export const EnemyDamage = [
       instantTrigger: {
         type: 'SkillInvoke',
         triggerPuller: { type: 'Myself' },
-        threshold: { power1: 1, firstMax: 1 }
+        threshold: {
+          power1: 100000,
+          firstMax: 100000
+        }
       },
       instantContent: {
         type: 'EnemyDamageByMaxHpWhite',
         target: { type: 'Myself' },
-        strength: { power1: 15, firstMax: 30 }
+        strength: {
+          power1: 1500000,
+          firstMax: 3000000
+        }
       }
     }
   }
@@ -487,8 +511,8 @@ export const LampGuideLeader = [
           characterGroups: ['White']
         },
         strength: {
-          power1: 0.1,
-          firstMax: 0.15
+          power1: 10000,
+          firstMax: 15000
         }
       }
     }
@@ -516,8 +540,8 @@ export const LampGuideLeader = [
           characterGroups: ['White']
         },
         strength: {
-          power1: 0.6,
-          firstMax: 0.8
+          power1: 60000,
+          firstMax: 80000
         }
       }
     }
@@ -541,8 +565,8 @@ export const DuringHPLow = [
           type: 'TotalOfParty'
         },
         threshold: {
-          power1: 0.5,
-          firstMax: 0.5
+          power1: 50000,
+          firstMax: 50000
         }
       },
       duringContent: {
@@ -552,8 +576,8 @@ export const DuringHPLow = [
           characterGroups: ['Black']
         },
         strength: {
-          power1: 0.35,
-          firstMax: 1.4
+          power1: 35000,
+          firstMax: 140000
         }
       }
     }
@@ -575,8 +599,8 @@ export const DuringHPLow = [
           characterGroups: ['Black']
         },
         threshold: {
-          power1: 0.2,
-          firstMax: 0.2
+          power1: 20000,
+          firstMax: 20000
         },
         triggerLimit: 4
       },
@@ -586,8 +610,8 @@ export const DuringHPLow = [
           type: 'TriggerPuller'
         },
         strength: {
-          power1: 0.0125,
-          firstMax: 0.05
+          power1: 1250,
+          firstMax: 5000
         }
       }
     }
@@ -609,8 +633,8 @@ export const DuringHPLow = [
           characterGroups: ['Black']
         },
         threshold: {
-          power1: 1,
-          firstMax: 1
+          power1: 100000,
+          firstMax: 100000
         },
         triggerLimit: 3
       },
@@ -620,8 +644,8 @@ export const DuringHPLow = [
           type: 'TriggerPuller'
         },
         strength: {
-          power1: 0.025,
-          firstMax: 0.1
+          power1: 2500,
+          firstMax: 10000
         }
       }
     }
@@ -648,8 +672,8 @@ export const TargetLeader = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.1,
-          firstMax: 0.2
+          power1: 10000,
+          firstMax: 20000
         }
       }
     }
@@ -673,8 +697,8 @@ export const TargetLeader = [
           type: 'Leader'
         },
         strength: {
-          power1: 0.2,
-          firstMax: 0.4
+          power1: 20000,
+          firstMax: 40000
         }
       }
     }
@@ -695,8 +719,8 @@ export const MultiInstantWithSlash2 = [
       instantTrigger: {
         type: 'Combo',
         threshold: {
-          power1: 30,
-          firstMax: 30
+          power1: 3000000,
+          firstMax: 3000000
         },
         triggerLimit: 1
       },
@@ -706,8 +730,8 @@ export const MultiInstantWithSlash2 = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.15,
-          firstMax: 0.3
+          power1: 15000,
+          firstMax: 30000
         }
       }
     }
@@ -725,8 +749,8 @@ export const MultiInstantWithSlash2 = [
       instantTrigger: {
         type: 'Combo',
         threshold: {
-          power1: 50,
-          firstMax: 50
+          power1: 5000000,
+          firstMax: 5000000
         },
         triggerLimit: 1
       },
@@ -736,8 +760,8 @@ export const MultiInstantWithSlash2 = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.25,
-          firstMax: 0.5
+          power1: 25000,
+          firstMax: 50000
         }
       }
     }
@@ -755,8 +779,8 @@ export const MultiInstantWithSlash2 = [
       instantTrigger: {
         type: 'Combo',
         threshold: {
-          power1: 100,
-          firstMax: 100
+          power1: 10000000,
+          firstMax: 10000000
         },
         triggerLimit: 1
       },
@@ -766,8 +790,8 @@ export const MultiInstantWithSlash2 = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.5,
-          firstMax: 1
+          power1: 50000,
+          firstMax: 100000
         }
       }
     }
@@ -811,8 +835,8 @@ export const MiaLeaderAbility = [
           characterGroups: ['Green']
         },
         strength: {
-          power1: 0.12,
-          firstMax: 0.15
+          power1: 12000,
+          firstMax: 15000
         }
       }
     }
@@ -837,8 +861,8 @@ export const MiaLeaderAbility = [
           characterGroups: ['Green']
         },
         strength: {
-          power1: 0.08,
-          firstMax: 0.1
+          power1: 8000,
+          firstMax: 10000
         }
       }
     }
@@ -859,8 +883,8 @@ export const EnemyLow = [
       duringTrigger: {
         type: 'EnemyLow',
         threshold: {
-          power1: 1,
-          firstMax: 1
+          power1: 100000,
+          firstMax: 100000
         }
       },
       duringContent: {
@@ -869,8 +893,8 @@ export const EnemyLow = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.3,
-          firstMax: 0.6
+          power1: 30000,
+          firstMax: 60000
         }
       }
     }
@@ -894,8 +918,8 @@ export const ConditionPiercing = [
       instantContent: {
         type: 'PiercingExtend',
         strength: {
-          power1: 0.075,
-          firstMax: 0.15
+          power1: 7500,
+          firstMax: 15000
         }
       }
     }
@@ -923,8 +947,8 @@ export const FeverPoint = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.375,
-          firstMax: 0.75
+          power1: 37500,
+          firstMax: 75000
         }
       }
     }
@@ -948,8 +972,8 @@ export const FeverPoint = [
           type: 'Myself'
         },
         strength: {
-          power1: 0.15,
-          firstMax: 0.3
+          power1: 15000,
+          firstMax: 30000
         }
       }
     }

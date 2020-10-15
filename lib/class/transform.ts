@@ -13,12 +13,20 @@ export class Transform {
     return this.table[this.type][name];
   }
 
-  compute(threshold?: AbilityThreshold, level = 5): number | undefined {
+  compute(
+    threshold?: AbilityThreshold,
+    level = 5,
+    corr = 100000
+  ): number | undefined {
     if (!threshold) return undefined;
-    const min = threshold.power1;
-    const max = threshold.firstMax;
+    const min = this.correction(threshold.power1, corr);
+    const max = this.correction(threshold.firstMax, corr);
     const step = (max - min) / 4;
     // short circuit
     return level === 5 ? max : min + step * (level - 1);
+  }
+
+  correction(num: number, corr: number): number {
+    return Number(Number(num / corr).toFixed(12));
   }
 }

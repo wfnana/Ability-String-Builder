@@ -11,7 +11,7 @@ export class OpeningContent extends Transform {
   }
 
   computeStrength(level = 5): number | undefined {
-    return this.compute(this.strength, level);
+    return this.compute(this.strength, level, 1);
   }
 }
 
