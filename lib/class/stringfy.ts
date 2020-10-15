@@ -226,7 +226,7 @@ export class Stringfy {
           target
         );
       case 'During': {
-        const suffix = !!param3
+        const suffix = param3
           ? this.getUiString('ability_description_separator_and')
           : '';
         return this.stringfyDuringTrigger(precondition, true, target) + suffix;
@@ -425,7 +425,7 @@ export class Stringfy {
     partial: string,
     limit: number | undefined,
     param3: boolean,
-    param4: Function
+    param4: (limit: number | undefined) => string
   ): string {
     if (limit) {
       if (limit === 1) {
@@ -522,37 +522,38 @@ export class Stringfy {
   }
 
   stringfyInstantTriggerOneOfEnemyCharacterCount(
-    param1: TriggerPuller,
-    param2: number | undefined,
+    kind: string,
     threshold: number | undefined,
-    limit: number,
-    _param5: boolean,
-    param6: Target | undefined
+    limit: number | undefined,
+    param4: TriggerPuller | undefined,
+    param5: boolean,
+    target: Target | undefined
   ): string {
+    const count = this.stringfyCount(threshold, param5);
     const conj = this.stringfyConjuctionTriggerLimit(limit);
-    const count = this.stringfyCount(threshold, _param5);
     let str = '';
-    switch (param2) {
-      case 3:
-      case 4:
-      case 5:
+    switch (kind) {
+      case 'OneOfEnemyMemberDirectAttack':
         str = this.getWithTriggerPullerAndTimes(
           'ability_description_instant_trigger_kind_one_of_enemy_direct_attack',
-          param1,
+          param4 as TriggerPuller,
           limit,
           false,
-          param6
+          target
         );
-      case 6:
+        break;
+      case 'OneOfEnemySkillHit':
         str = this.getWithTriggerPullerAndTimes(
           'ability_description_instant_trigger_kind_one_of_enemy_skill_hit',
-          param1,
+          param4 as TriggerPuller,
           limit,
           false,
-          param6
+          target
         );
+        break;
       default:
         str = '';
+        break;
     }
     return count + str + conj;
   }
@@ -770,7 +771,7 @@ export class Stringfy {
         );
         break;
     }
-    const real = !!param5
+    const real = param5
       ? this.getUiString('ability_description_only_real')
       : '';
     return real + count + str + conj;
@@ -839,7 +840,7 @@ export class Stringfy {
   ): string {
     const count = this.stringfyCount(threshold, param5);
     const conj = this.stringfyConjuctionTriggerLimit(limit);
-    const real = !!param7
+    const real = param7
       ? this.getUiString('ability_description_only_real')
       : '';
     let str = '';
@@ -963,6 +964,15 @@ export class Stringfy {
           false,
           target,
           false
+        );
+      case 'OneOfEnemyCharacterCount':
+        return this.stringfyInstantTriggerOneOfEnemyCharacterCount(
+          param1.type,
+          param1.computeThreshold(this.level),
+          param1.triggerLimit,
+          param2,
+          false,
+          target
         );
       case 'Combo':
         return this.stringfyInstantTriggerCombo(
@@ -2283,8 +2293,9 @@ export class Stringfy {
             threshold
           );
         }
+        return '';
       }
-      case 'Low':
+      case 'Low': {
         const tmp = 0;
         if (!tmp) {
           return this.getWithCount(
@@ -2292,7 +2303,9 @@ export class Stringfy {
             threshold
           );
         }
-      case 'Combo':
+        return '';
+      }
+      case 'Combo': {
         if (param1.type.includes('Low')) {
           return this.getWithCount(
             'ability_description_during_trigger_kind_combo_low',
@@ -2303,6 +2316,7 @@ export class Stringfy {
           'ability_description_during_trigger_kind_combo_high',
           threshold
         );
+      }
       case 'Enemy':
         if (param1.type.includes('Low')) {
           return this.getWithCount(
