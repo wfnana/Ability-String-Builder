@@ -144,17 +144,6 @@ export class Stringfy {
     }
   }
 
-  stringfyThirdCharacterTrigger(group: Array<string>): string {
-    const conj = this.stringfyConjuctionTriggerLimit(1);
-    const str = this.container.getUiStringWithContext(
-      'ability_description_instant_trigger_kind_third_character',
-      {
-        constraint: this.stringfyCharacterGroups(group, false)
-      }
-    );
-    return str + conj;
-  }
-
   stringfyStrengthTimes(num?: number): string {
     return this.container.getUiStringWithContext('ability_description_times', {
       strength: num
@@ -187,17 +176,6 @@ export class Stringfy {
     return this.getWithSecond('ability_description_for_second', second);
   }
 
-  stringfySecondCharacterTrigger(group: Array<string>): string {
-    const conj = this.stringfyConjuctionTriggerLimit(1);
-    const str = this.container.getUiStringWithContext(
-      'ability_description_instant_trigger_kind_second_character',
-      {
-        constraint: this.stringfyCharacterGroups(group, false)
-      }
-    );
-    return str + conj;
-  }
-
   stringfySecond(second: number | undefined): string {
     return Number(Number(Number(second) / 60).toFixed(2)).toString();
   }
@@ -228,14 +206,15 @@ export class Stringfy {
     trigger: DuringTrigger,
     target: Target | undefined
   ): string {
-    const pre = this.stringfyPrecondition(precondition, target);
+    const pre = this.stringfyPrecondition(precondition, target, true);
     const tri = this.stringfyDuringTrigger(trigger, false, target);
     return pre + tri;
   }
 
   stringfyPrecondition(
     precondition: Precondition,
-    target: Target | undefined
+    target: Target | undefined,
+    param3: boolean
   ): string {
     const param1kind = precondition.convert('AbilityPreconditionKind');
     switch (param1kind) {
@@ -246,8 +225,12 @@ export class Stringfy {
           true,
           target
         );
-      case 'During':
-        return this.stringfyDuringTrigger(precondition, true, target);
+      case 'During': {
+        const suffix = !!param3
+          ? this.getUiString('ability_description_separator_and')
+          : '';
+        return this.stringfyDuringTrigger(precondition, true, target) + suffix;
+      }
       default:
         return '';
     }
@@ -302,9 +285,7 @@ export class Stringfy {
 
   stringfyOpening(param1: Opening): string {
     let str = '';
-    const unisonable = !param1.unisonable
-      ? this.getUiString('ability_description_not_unisonable_full')
-      : '';
+    const unisonable = this.stringfyUnisonable(param1.unisonable);
     const param1kind = param1.opening.convert('OpeningAbilityKind');
     switch (param1kind) {
       case 'MyselfExpBoost':
@@ -509,17 +490,6 @@ export class Stringfy {
     return String(Number(param3) * Number(param2));
   }
 
-  stringfyLeaderCharacterTrigger(group: Array<string>): string {
-    const conj = this.stringfyConjuctionTriggerLimit(1);
-    const str = this.container.getUiStringWithContext(
-      'ability_description_instant_trigger_kind_leader_character',
-      {
-        constraint: this.stringfyCharacterGroups(group, false)
-      }
-    );
-    return str + conj;
-  }
-
   stringfyLeaderTrigger(target: Target | undefined): string {
     const conj = this.stringfyConjuctionTriggerLimit(1);
     const str = this.container.getUiStringWithContext(
@@ -563,6 +533,16 @@ export class Stringfy {
     const count = this.stringfyCount(threshold, _param5);
     let str = '';
     switch (param2) {
+      case 3:
+      case 4:
+      case 5:
+        str = this.getWithTriggerPullerAndTimes(
+          'ability_description_instant_trigger_kind_one_of_enemy_direct_attack',
+          param1,
+          limit,
+          false,
+          param6
+        );
       case 6:
         str = this.getWithTriggerPullerAndTimes(
           'ability_description_instant_trigger_kind_one_of_enemy_skill_hit',
@@ -612,18 +592,8 @@ export class Stringfy {
         return this.stringfyMyselfTrigger(characterGroups, param4);
       case 'UnisonMyself':
         return this.stringfyUnisonMyselfTrigger(characterGroups, param4);
-      // TODO: Remove
-      case 'LeaderCharacter':
-        return this.stringfyLeaderCharacterTrigger(characterGroups);
-      // TODO: Remove
-      case 'SecondCharacter':
-        return this.stringfySecondCharacterTrigger(characterGroups);
-      // TODO: Remove
-      case 'ThirdCharacter':
-        return this.stringfyThirdCharacterTrigger(characterGroups);
       case 'Characer':
-        // TODO: stringfyCharacterAtTrigger
-        return '';
+        return this.stringfyCharacterAtTrigger(param2.type, characterGroups);
       case 'Variety':
         return this.stringfyVarietyTrigger(
           param2.convert('PartyCharacterVarietyKind'),
@@ -793,6 +763,12 @@ export class Stringfy {
           limit
         );
         break;
+      case 'EnemyConditionCancelBuff':
+        str = this.getWithTimes(
+          'ability_description_instant_trigger_kind_enemy_condition_cancel_buff',
+          limit
+        );
+        break;
     }
     const real = !!param5
       ? this.getUiString('ability_description_only_real')
@@ -863,6 +839,9 @@ export class Stringfy {
   ): string {
     const count = this.stringfyCount(threshold, param5);
     const conj = this.stringfyConjuctionTriggerLimit(limit);
+    const real = !!param7
+      ? this.getUiString('ability_description_only_real')
+      : '';
     let str = '';
     switch (kind) {
       case 'Revival':
@@ -928,10 +907,35 @@ export class Stringfy {
           target
         );
         break;
+      case 'Barrier':
+        str = this.getWithTriggerPullerAndTimes(
+          'ability_description_instant_trigger_kind_barrier',
+          param4 as TriggerPuller,
+          limit,
+          false,
+          target
+        );
+        break;
+      case 'Coffin':
+        str = this.getWithTriggerPullerAndTimes(
+          'ability_description_instant_trigger_kind_coffin',
+          param4 as TriggerPuller,
+          limit,
+          false,
+          target
+        );
+        break;
+      case 'SkillGauge':
+        str = this.getWithTriggerPullerAndTimesAndCount(
+          'ability_description_instant_trigger_kind_skill_gauge',
+          param4 as TriggerPuller,
+          limit,
+          false,
+          target,
+          count
+        );
+        return real + str + conj;
     }
-    const real = !!param7
-      ? this.getUiString('ability_description_only_real')
-      : '';
     return real + count + str + conj;
   }
 
@@ -1037,13 +1041,15 @@ export class Stringfy {
     content: Content,
     isInitialTrigger: boolean,
     limit: number | undefined,
+    cooltime: number | undefined,
     notFirst: boolean
   ): string {
     const contentkind = content.data.convert('InstantAbilityContent');
     const prefix = this.stringfyPrefixTriggerLimit(limit, false);
+    let str = '';
     switch (contentkind) {
       case 'ConditionCharacter':
-        return (
+        str =
           prefix +
           this.stringfyConditionCharacterContent(
             content,
@@ -1052,21 +1058,22 @@ export class Stringfy {
             (content.data as InstantContent)?.flipLimit,
             (content.data as InstantContent)?.maxAccumulation,
             notFirst
-          )
-        );
+          );
+        break;
       case 'ConditionBattle':
-        return (
+        str =
           prefix +
           this.stringfyConditionBattleContent(
             content,
             (content.data as InstantContent)?.computeFrame(this.level),
             (content.data as InstantContent)?.flipLimit
-          )
-        );
+          );
+        break;
       case 'Common':
-        return this.stringfyCommonContent(content, limit, notFirst);
+        str = this.stringfyCommonContent(content, limit, notFirst);
+        break;
       case 'DurationTimeCharacter':
-        return (
+        str =
           prefix +
           this.stringfyDurationTimeCharacterContent(
             content,
@@ -1074,25 +1081,29 @@ export class Stringfy {
             (content.data as InstantContent)?.computeFrame(this.level),
             (content.data as InstantContent)?.flipLimit,
             notFirst
-          )
-        );
+          );
+        break;
       case 'InstantCharacter':
-        return this.stringfyInstantCharacterContent(
+        str = this.stringfyInstantCharacterContent(
           content,
           content,
           isInitialTrigger,
           limit,
           notFirst
         );
+        break;
       case 'InstantBattle':
-        return this.stringfyInstantBattleContent(
+        str = this.stringfyInstantBattleContent(
           content,
           isInitialTrigger,
           limit
         );
+        break;
       default:
-        return '';
+        str = '';
+        break;
     }
+    return str + this.stringfyCooltime(cooltime);
   }
 
   stringfyInstantCharacterContent(
@@ -1665,6 +1676,57 @@ export class Stringfy {
           )
         );
       }
+      case 'NearestEnemyDamage': {
+        if (notFirst) {
+          if (isInitialTrigger) {
+            return this.stringfyMaxStrengthPercent(
+              this.getWithElementParameterReferenceAndPercent(
+                'ability_description_instant_content_nearest_enemy_damage_minimal',
+                param2.data.type,
+                param2.data.type,
+                threshold
+              ),
+              limit,
+              true,
+              threshold
+            );
+          }
+          return (
+            this.stringfyPrefixTriggerLimit(limit, false) +
+            this.getWithElementParameterReferenceAndPercent(
+              'ability_description_instant_content_nearest_enemy_damage_minimal',
+              param2.data.type,
+              param2.data.type,
+              threshold
+            )
+          );
+        }
+
+        if (isInitialTrigger) {
+          return this.stringfyMaxStrengthPercent(
+            this.getWithElementParameterReferenceTargetAndPercent(
+              'ability_description_instant_content_nearest_enemy_damage',
+              param2.data.type,
+              param2.data.type,
+              param1,
+              threshold
+            ),
+            limit,
+            true,
+            threshold
+          );
+        }
+        return (
+          this.stringfyPrefixTriggerLimit(limit, false) +
+          this.getWithElementParameterReferenceTargetAndPercent(
+            'ability_description_instant_content_nearest_enemy_damage',
+            param2.data.type,
+            param2.data.type,
+            param1,
+            threshold
+          )
+        );
+      }
       default:
         return '';
     }
@@ -1751,7 +1813,7 @@ export class Stringfy {
     );
   }
 
-  stringfyFlipLimitOrFrame(
+  stringfyFlipLimitAndFrame(
     limit: number | undefined,
     frame: number | undefined
   ): string {
@@ -1840,6 +1902,67 @@ export class Stringfy {
       return this.getUiString('element_kind_black_full');
     }
     return '';
+  }
+
+  stringfyDuringTriggerSkillGaugeHighPercent(
+    param1: TriggerPuller | undefined,
+    param2: number | undefined,
+    _param3: string,
+    _param4: boolean,
+    param5: Target | undefined
+  ): string {
+    let target = '';
+    let isOmittable = false;
+    if (param1) {
+      target = this.stringfyTriggerPuller(param1, true);
+      isOmittable = this.isTriggerPullerOmittable(
+        param1.convert('AbilityTriggerPullerKind'),
+        param5,
+        true
+      );
+    } else {
+      target = this.getUiString('ability_description_target_ally_all');
+    }
+
+    return this.container.getUiStringWithContext(
+      'ability_description_during_trigger_kind_skill_gauge_high_percent',
+      {
+        triggerPuller: target,
+        omittable: isOmittable,
+        percent: this.stringfyPercentNormal(param2)
+      }
+    );
+  }
+
+  stringfyDuringTriggerSkillGauge(
+    param1: TriggerPuller | undefined,
+    param2: number | undefined,
+    param3: boolean,
+    _param4: boolean,
+    param5: Target | undefined
+  ): string {
+    let target = '';
+    let isOmittable = false;
+    if (param1) {
+      target = this.stringfyTriggerPuller(param1, true);
+      isOmittable = this.isTriggerPullerOmittable(
+        param1.convert('AbilityTriggerPullerKind'),
+        param5,
+        true
+      );
+    } else {
+      target = this.getUiString('ability_description_target_ally_all');
+    }
+
+    const key = param3
+      ? 'ability_description_during_trigger_kind_skill_gauge_high'
+      : 'ability_description_during_trigger_kind_skill_gauge_low';
+
+    return this.container.getUiStringWithContext(key, {
+      triggerPuller: target,
+      omittable: isOmittable,
+      percent: this.stringfyPercentNormal(param2)
+    });
   }
 
   stringfyDuringTriggerCondition(
@@ -2089,6 +2212,43 @@ export class Stringfy {
             return '';
         }
       }
+      case 'SkillGaugeHigh': {
+        const limit = param2.triggerLimit;
+        if (limit) {
+          if (limit === 1) {
+            return this.stringfyDuringTriggerSkillGauge(
+              param1,
+              threshold,
+              true,
+              false,
+              target
+            );
+          }
+          return this.stringfyDuringTriggerSkillGaugeHighPercent(
+            param1,
+            threshold,
+            param2.type,
+            false,
+            target
+          );
+        }
+        return this.stringfyDuringTriggerSkillGaugeHighPercent(
+          param1,
+          threshold,
+          param2.type,
+          false,
+          target
+        );
+      }
+      case 'SkillGaugeLow': {
+        return this.stringfyDuringTriggerSkillGauge(
+          param1,
+          threshold,
+          false,
+          false,
+          target
+        );
+      }
       default:
         return '';
     }
@@ -2100,28 +2260,59 @@ export class Stringfy {
     param3: Target | undefined
   ): string {
     const param1kind = param1.convert('DuringBattleAbilityTriggerKind');
+    const threshold = param1.computeThreshold(this.level);
     switch (param1kind) {
+      case 'High': {
+        const tmp = 0;
+        const limit = param1.triggerLimit;
+        if (!tmp) {
+          if (!limit) {
+            if (limit === 1) {
+              return this.getWithCount(
+                'ability_description_during_trigger_kind_enemy_high',
+                threshold
+              );
+            }
+            return this.getWithCount(
+              'ability_description_during_trigger_kind_enemy_high_count',
+              threshold
+            );
+          }
+          return this.getWithCount(
+            'ability_description_during_trigger_kind_enemy_high_count',
+            threshold
+          );
+        }
+      }
+      case 'Low':
+        const tmp = 0;
+        if (!tmp) {
+          return this.getWithCount(
+            'ability_description_during_trigger_kind_enemy_low',
+            threshold
+          );
+        }
       case 'Combo':
         if (param1.type.includes('Low')) {
           return this.getWithCount(
             'ability_description_during_trigger_kind_combo_low',
-            param1.computeThreshold(this.level)
+            threshold
           );
         }
         return this.getWithCount(
           'ability_description_during_trigger_kind_combo_high',
-          param1.computeThreshold(this.level)
+          threshold
         );
       case 'Enemy':
         if (param1.type.includes('Low')) {
           return this.getWithCount(
             'ability_description_during_trigger_kind_enemy_low',
-            param1.computeThreshold(this.level)
+            threshold
           );
         }
         return this.getWithCount(
           'ability_description_during_trigger_kind_enemy_high',
-          param1.computeThreshold(this.level)
+          threshold
         );
       case 'Fever':
         return this.getUiString(
@@ -2130,7 +2321,7 @@ export class Stringfy {
       case 'Multiball':
         return this.getWithCount(
           'ability_description_during_trigger_kind_multiball',
-          param1.computeThreshold(this.level)
+          threshold
         );
       case 'Condition': {
         // limit correction
@@ -2245,7 +2436,7 @@ export class Stringfy {
         );
         break;
     }
-    return this.stringfyFlipLimitOrFrame(limit, frame) + str;
+    return this.stringfyFlipLimitAndFrame(limit, frame) + str;
   }
 
   stringfyCountUp(threshold: number | undefined, _param2?: boolean): string {
@@ -2271,6 +2462,13 @@ export class Stringfy {
       return '';
     }
     return this.getWithCount('ability_description_n_times', threshold);
+  }
+
+  stringfyCooltime(cooltime: number | undefined): string {
+    if (cooltime === 0 || !cooltime) {
+      return '';
+    }
+    return this.getWithSecond('ability_description_cooltime', cooltime);
   }
 
   stringfyConjuctionTriggerLimit(param1?: number): string {
@@ -2803,7 +3001,7 @@ export class Stringfy {
         // should throw error here
         return '';
     }
-    return this.stringfyFlipLimitOrFrame(limit, frame) + str;
+    return this.stringfyFlipLimitAndFrame(limit, frame) + str;
   }
 
   stringfyConditionBattleContent(
@@ -2886,7 +3084,7 @@ export class Stringfy {
         );
         break;
     }
-    return this.stringfyFlipLimitOrFrame(limit, frame) + str;
+    return this.stringfyFlipLimitAndFrame(limit, frame) + str;
   }
 
   stringfyCommonContent(
@@ -3781,6 +3979,8 @@ export class Stringfy {
         return false;
       case 'TriggerEnemyDamage':
         return false;
+      case 'NearestEnemyDamage':
+        return false;
       default:
         return false;
     }
@@ -3800,6 +4000,27 @@ export class Stringfy {
       default:
         return false;
     }
+  }
+
+  getWithTriggerPullerAndTimesAndCount(
+    id: string,
+    param2: TriggerPuller,
+    param3: number | undefined,
+    param4: boolean,
+    param5: Target | undefined,
+    param6: string
+  ): string {
+    return this.container.getUiStringWithContext(id, {
+      triggerPuller: this.stringfyTriggerPuller(param2, param4),
+      omittable: this.isTriggerPullerOmittable(
+        param2.convert('AbilityTriggerPullerKind'),
+        param5,
+        true
+      ),
+      once: param3 === 1,
+      count: param6,
+      hasCount: param6 !== ''
+    });
   }
 
   getWithTriggerPullerAndTimes(
@@ -4290,6 +4511,15 @@ export class Stringfy {
 
   getContentDuringTriggerLimit(param1: DuringTrigger): number | undefined {
     return param1.triggerLimit;
+  }
+
+  getContentCooltime(param1: InstantTrigger): number | undefined {
+    const kind = param1.convert('InstantAbilityTriggerKind');
+    if (kind === 'Initial') {
+      return 0;
+    } else {
+      return param1.cooltime;
+    }
   }
 
   getCharacterCountUpUiString(param1: number | undefined): string {

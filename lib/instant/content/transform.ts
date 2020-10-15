@@ -1774,5 +1774,82 @@ export const ABILITY_INSTANT_CONTENT_TRANSFORM = {
   TriggerEnemyDamageByMaxHpBlack: {
     InstantAbilityContent: 'InstantCharacter',
     InstantAbilityInstantCharacterContent: 'TriggerEnemyDamage'
+  },
+  NearestEnemyDamageByAttackRed: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByAttackBlue: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByAttackYellow: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByAttackGreen: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByAttackWhite: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByAttackBlack: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByCurrentHpRed: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByCurrentHpBlue: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByCurrentHpYellow: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByCurrentHpGreen: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByCurrentHpWhite: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByCurrentHpBlack: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByMaxHpRed: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByMaxHpBlue: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByMaxHpYellow: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByMaxHpGreen: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByMaxHpWhite: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  NearestEnemyDamageByMaxHpBlack: {
+    InstantAbilityContent: 'InstantCharacter',
+    InstantAbilityInstantCharacterContent: 'NearestEnemyDamage'
+  },
+  AbilityDamage: {
+    InstantAbilityContent: 'Common',
+    CommonAbilityContent: 'Character',
+    CommonAbilityCharacterContent: 'AbilityDamage'
   }
 };

@@ -220,15 +220,15 @@ export const ABILITY_PRECONDITION_TRANSFORM = {
   },
   LeaderCharacter: {
     AbilityPreconditionKind: 'Initial',
-    InitialAbilityTriggerKind: 'LeaderCharacter'
+    InitialAbilityTriggerKind: 'Character'
   },
   SecondCharacter: {
     AbilityPreconditionKind: 'Initial',
-    InitialAbilityTriggerKind: 'SecondCharacter'
+    InitialAbilityTriggerKind: 'Character'
   },
   ThirdCharacter: {
     AbilityPreconditionKind: 'Initial',
-    InitialAbilityTriggerKind: 'ThirdCharacter'
+    InitialAbilityTriggerKind: 'Character'
   },
   EnemyHigh: {
     AbilityPreconditionKind: 'Initial',

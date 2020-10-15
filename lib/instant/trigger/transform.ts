@@ -284,15 +284,15 @@ export const ABILITY_INSTANT_TRIGGER_TRANSFORM = {
   },
   LeaderCharacter: {
     InstantAbilityTriggerKind: 'Initial',
-    InitialAbilityTriggerKind: 'LeaderCharacter'
+    InitialAbilityTriggerKind: 'Character'
   },
   SecondCharacter: {
     InstantAbilityTriggerKind: 'Initial',
-    InitialAbilityTriggerKind: 'SecondCharacter'
+    InitialAbilityTriggerKind: 'Character'
   },
   ThirdCharacter: {
     InstantAbilityTriggerKind: 'Initial',
-    InitialAbilityTriggerKind: 'ThirdCharacter'
+    InitialAbilityTriggerKind: 'Character'
   },
   ConditionAdditionalDirectAttack: {
     InstantAbilityTriggerKind: 'Battle',
@@ -480,6 +480,193 @@ export const ABILITY_INSTANT_TRIGGER_TRANSFORM = {
     ConditionSign: 'Good'
   },
   SkillHit: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'CharacterCount'
+  },
+  OneOfEnemyConditionAll: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'All',
+    ConditionSign: 'Both'
+  },
+  OneOfEnemyConditionDebuff: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'All',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionBuff: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'All',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionAttackPointUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'AttackPoint',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionAttackPointDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'AttackPoint',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionResistanceAllUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'AllElementResistance',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionResistanceRedUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionResistanceBlueUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionResistanceYellowUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionResistanceGreenUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionResistanceWhiteUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionResistanceBlackUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionResistanceAllDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'AllElementResistance',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionResistanceRedDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionResistanceBlueDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionResistanceYellowDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionResistanceGreenDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionResistanceWhiteDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionResistanceBlackDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionDamageCut: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'ElementDamageCut',
+    ConditionSign: 'Both'
+  },
+  OneOfEnemyConditionInvincible: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'Invincible'
+  },
+  OneOfEnemyConditionRegeneration: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'Regeneration'
+  },
+  OneOfEnemyConditionPoison: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'Poison'
+  },
+  OneOfEnemyConditionParalysis: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'Paralysis'
+  },
+  OneOfEnemyConditionFrozen: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'Frozen'
+  },
+  OneOfEnemyConditionCharacterSlayerUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'CharacterSlayer',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemyConditionCharacterSlayerDown: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'CharacterSlayer',
+    ConditionSign: 'Bad'
+  },
+  OneOfEnemyConditionDebuffResistanceUp: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCondition',
+    ConditionTargetKind: 'PinchSlayer',
+    ConditionSign: 'Good'
+  },
+  OneOfEnemySkillHit: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCharacterCount'
+  },
+  Barrier: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'CharacterCount'
+  },
+  OneOfEnemyMemberDirectAttack: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCharacterCount'
+  },
+  Coffin: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'CharacterCount'
+  },
+  EnemyConditionCancelBuff: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'Count'
+  },
+  SkillGauge: {
     InstantAbilityTriggerKind: 'Battle',
     InstantBattleAbilityTriggerKind: 'CharacterCount'
   }

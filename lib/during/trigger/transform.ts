@@ -345,11 +345,11 @@ export const ABILITY_DURING_TRIGGER_TRANSFORM = {
   },
   EnemyHigh: {
     DuringAbilityTriggerKind: 'Battle',
-    DuringBattleAbilityTriggerKind: 'Enemy'
+    DuringBattleAbilityTriggerKind: 'High'
   },
   EnemyLow: {
     DuringAbilityTriggerKind: 'Battle',
-    DuringBattleAbilityTriggerKind: 'Enemy'
+    DuringBattleAbilityTriggerKind: 'Low'
   },
   ConditionDirectDamageUp: {
     DuringAbilityTriggerKind: 'Character',
@@ -553,5 +553,18 @@ export const ABILITY_DURING_TRIGGER_TRANSFORM = {
     DuringAbilityTriggerKind: 'Battle',
     ConditionTargetKind: 'Speedup',
     DuringBattleAbilityTriggerKind: 'Condition'
+  },
+  MaxHpUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ParameterUp',
+    CharacterFloatParameterKind: 'MaxHp'
+  },
+  SkillGaugeHigh: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'SkillGaugeHigh'
+  },
+  SkillGaugeLow: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'SkillGaugeLow'
   }
 };

@@ -850,5 +850,9 @@ export const ABILITY_DURING_CONTENT_TRANSFORM = {
     CommonAbilityCharacterContent: 'ResistanceToConditionEnemy',
     ConditionTargetKind: 'PinchSlayer',
     ConditionSign: 'Good'
+  },
+  AbilityDamage: {
+    CommonAbilityContent: 'Character',
+    CommonAbilityCharacterContent: 'AbilityDamage'
   }
 };

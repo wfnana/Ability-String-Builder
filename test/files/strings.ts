@@ -1,8 +1,10 @@
 /* eslint-disable quotes */
 export const ja = {
   ability_description_character_group_race_brackets: '種族「::race::」',
+  ability_description_cooltime: '（CT: ::second:: 秒）',
   ability_description_not_unisonable_full: 'メインキャラに編成時、',
   ability_description_not_unisonable_icon: "<icon id='main'>",
+  ability_description_separator_and: 'かつ、',
   ability_description_character_group_speciality_suffix: 'タイプ',
   ability_description_target_separator_or: 'または',
   ability_description_target_separator: '、',
@@ -85,6 +87,8 @@ export const ja = {
     '::if !omittable::::triggerPuller::が::end::ダメージを受け::if once::た::else::る::end::',
   ability_description_instant_trigger_kind_direct_attack:
     '::if !omittable::::triggerPuller::が::end::直接攻撃を::if once::::else::する::end::',
+  ability_description_instant_trigger_kind_one_of_enemy_direct_attack:
+    '::if !omittable::::triggerPuller::が::end::1つの敵に直接攻撃を::if once::::else::する::end::',
   ability_description_instant_trigger_kind_skill_invoke:
     '::if !omittable::::triggerPuller::が::end::スキルを発動::if once::::else::する::end::',
   ability_description_instant_trigger_kind_skill_max:
@@ -93,6 +97,14 @@ export const ja = {
     '::if !omittable::::triggerPuller::の::end::スキルがヒット::if once::::else::する::end::',
   ability_description_instant_trigger_kind_one_of_enemy_skill_hit:
     '::if !omittable::::triggerPuller::の::end::スキルが1つの敵にヒット::if once::::else::する::end::',
+  ability_description_instant_trigger_kind_barrier:
+    '::if !omittable::::triggerPuller::が::end::バリア状態::if once::::else::になる::end::',
+  ability_description_instant_trigger_kind_coffin:
+    '::if !omittable::::triggerPuller::が::end::棺桶状態::if once::::else::になる::end::',
+  ability_description_instant_trigger_kind_enemy_condition_cancel_buff:
+    '参戦者が敵の強化効果を消去::if once::::else::する::end::',
+  ability_description_instant_trigger_kind_skill_gauge:
+    '::if !omittable::::triggerPuller::の::end::スキルゲージがアビリティやスキルの効果によって::if hasCount:: ::count::::else::::end::増加::if once::::else::する::end::',
   ability_description_instant_trigger_kind_combo:
     '::count::コンボ::if once::::else::する::end::',
   ability_description_instant_trigger_kind_combo_display:
@@ -138,6 +150,8 @@ export const ja = {
     '敵が ::count:: 体以下の間、',
   ability_description_during_trigger_kind_enemy_high:
     '敵が ::count:: 体以上の間、',
+  ability_description_during_trigger_kind_enemy_high_count:
+    '敵 ::count:: 体につき、',
   ability_description_during_trigger_kind_fever: 'フィーバー中、',
   ability_description_during_trigger_kind_multiball:
     'マルチボールが ::count:: 個以上の間、',
@@ -167,6 +181,12 @@ export const ja = {
     '::if !omittable::::triggerPuller::の::end::最大HPが ::percent:: 以上アップしている間、',
   ability_description_during_trigger_kind_power_flip_damage_up:
     'パワーフリップダメージが ::percent:: 以上アップしている間、',
+  ability_description_during_trigger_kind_skill_gauge_high_percent:
+    '::if !omittable::::triggerPuller::の::end::スキルゲージの量に応じてスキルゲージ ::percent:: につき、',
+  ability_description_during_trigger_kind_skill_gauge_high:
+    '::if !omittable::::triggerPuller::の::end::スキルゲージが ::percent:: 以上の間、',
+  ability_description_during_trigger_kind_skill_gauge_low:
+    '::if !omittable::::triggerPuller::の::end::スキルゲージが ::percent:: 以下の間、',
   ability_description_condition_content_attack:
     '::target::の攻撃力 ::percent_up_down::',
   ability_description_condition_content_attack_minimal:
@@ -241,6 +261,10 @@ export const ja = {
     '::target::のスキルダメージ ::percent_up_down::',
   ability_description_common_content_skill_damage_minimal:
     'スキルダメージ ::percent_up_down::',
+  ability_description_common_content_ability_damage:
+    '::target::のアビリティダメージ ::percent_up_down::',
+  ability_description_common_content_ability_damage_minimal:
+    'アビリティダメージ ::percent_up_down::',
   ability_description_common_content_skill_gauge_chaging:
     '::target::のスキルチャージ速度 ::percent_up_down::',
   ability_description_common_content_skill_gauge_chaging_minimal:
@@ -379,6 +403,10 @@ export const ja = {
     'その敵に::target::の::parameter::の ::times::の威力を持つ::element_short::ダメージ',
   ability_description_instant_content_trigger_enemy_damage_minimal:
     'その敵に::parameter::の ::times::の威力を持つ::element_short::ダメージ',
+  ability_description_instant_content_nearest_enemy_damage:
+    '最も近い敵に::target::の::parameter::の ::times::の威力を持つ::element_short::ダメージ',
+  ability_description_instant_content_nearest_enemy_damage_minimal:
+    '最も近い敵に::parameter::の ::times::の威力を持つ::element_short:::ダメージ',
   ability_description_prameter_reference_attack: '攻撃力',
   ability_description_prameter_reference_max_hp: '最大HP',
   ability_description_prameter_reference_current_hp: '現在HP',

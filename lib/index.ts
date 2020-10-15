@@ -61,7 +61,8 @@ export class AbilityStringBuilder {
           unisonable = stringify.stringfyUnisonable(instant.unisonable);
           precondition = stringify.stringfyPrecondition(
             instant.precondition,
-            content.targetKind
+            content.targetKind,
+            false
           );
           trigger = stringify.stringfyInstantTrigger(
             instant.triggerKind,
@@ -69,6 +70,7 @@ export class AbilityStringBuilder {
           );
           const isInitial = stringify.isInitialTrigger(instant.triggerKind);
           const limit = stringify.getContentTriggerLimit(instant.triggerKind);
+          const cooltime = stringify.getContentCooltime(instant.triggerKind);
           if (!!isInitial && !stringify.isContinuationInstantContent(content)) {
             post = stringify.stringfyInitialWithoutContinuation();
           }
@@ -76,6 +78,7 @@ export class AbilityStringBuilder {
             content,
             isInitial,
             limit,
+            cooltime,
             notFirst
           );
           contentResult.push(result);

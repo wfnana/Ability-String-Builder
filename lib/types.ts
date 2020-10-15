@@ -29,6 +29,7 @@ export type AbilityInstantTrigger = {
   threshold?: AbilityThreshold;
   triggerLimit?: number;
   characterGroups?: Array<string>;
+  cooltime?: number;
 };
 
 export type AbilityInstantContent = {
