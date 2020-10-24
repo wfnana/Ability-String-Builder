@@ -7,8 +7,10 @@ import {
   EnemyDamage,
   EnemyLow,
   FeverPoint,
+  HealHigh,
   LampGuideLeader,
   MiaLeaderAbility,
+  MissingMaxStrength,
   MultiDuringWithSlash,
   MultiInstantWithAnd,
   MultiInstantWithSlash,
@@ -143,6 +145,22 @@ describe('index', function () {
     const result = builder.stringfy(grouped);
     expect(result).toEqual(
       '自身が水属性キャラである時、自身の攻撃によるフィーバーゲージ上昇率 + 75 % ／ リーダーである時、自身の攻撃力 + 30 %'
+    );
+  });
+
+  it('HealHigh - bishop_girl', function () {
+    const grouped = builder.groupByTrigger(HealHigh);
+    const result = builder.stringfy(grouped);
+    expect(result).toEqual(
+      '水属性キャラのHPが一度に 1000 以上の回復をした時、そのキャラの攻撃力 + 40 %[最大 + 40 % ]'
+    );
+  });
+
+  it('Missing Max Strength - spear_0026_storyevent', function () {
+    const grouped = builder.groupByTrigger(MissingMaxStrength);
+    const result = builder.stringfy(grouped);
+    expect(result).toEqual(
+      '自身が風属性キャラである時、5 回ダメージを受ける度、パワーフリップダメージ + 5 %[最大 + 100 % ] ／ 自身が風属性キャラである時、敵 1 体につき、パワーフリップダメージ + 10 %[最大 + 50 % ]'
     );
   });
 });

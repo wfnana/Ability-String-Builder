@@ -649,8 +649,7 @@ export class Stringfy {
           target,
           true
         ),
-        percent: this.stringfyPercentNormal(threshold),
-        percent_up_down: this.stringfyPercentUpDown(threshold),
+        count: threshold,
         once: limit === 1
       }
     );

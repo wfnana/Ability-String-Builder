@@ -979,3 +979,106 @@ export const FeverPoint = [
     }
   }
 ];
+
+export const HealHigh = [
+  {
+    id: 2210026,
+    stringId: 'bishop_girl_6',
+    unisonable: true,
+    statueGroupId: 'attack_blue',
+    trigger: {
+      type: 'Instant',
+      precondition: {
+        type: 'Always'
+      },
+      instantTrigger: {
+        type: 'HealHigh',
+        triggerPuller: {
+          type: 'OneOfParty',
+          characterGroups: ['Blue']
+        },
+        threshold: {
+          power1: 100000000,
+          firstMax: 100000000
+        },
+        triggerLimit: 1,
+        cooltime: 0
+      },
+      instantContent: {
+        type: 'AttackPoint',
+        target: {
+          type: 'TriggerPuller'
+        },
+        strength: {
+          power1: 20000,
+          firstMax: 40000
+        }
+      }
+    }
+  }
+];
+
+export const MissingMaxStrength = [
+  {
+    _id: '5f92b58a689d438405da7ab5',
+    id: 5030026,
+    stringId: '',
+    unisonable: true,
+    statueGroupId: '',
+    trigger: {
+      type: 'Instant',
+      precondition: {
+        type: 'MySelf',
+        characterGroups: ['Green']
+      },
+      instantTrigger: {
+        type: 'DamageCount',
+        triggerPuller: {
+          type: 'Myself'
+        },
+        threshold: {
+          power1: 500000,
+          firstMax: 500000
+        },
+        triggerLimit: 20,
+        cooltime: 0
+      },
+      instantContent: {
+        type: 'PowerFlipDamage',
+        strength: {
+          power1: 2500,
+          firstMax: 5000
+        }
+      }
+    }
+  },
+  {
+    _id: '5f92b58a689d438405da7ab6',
+    id: 5030026,
+    stringId: '',
+    unisonable: true,
+    statueGroupId: '',
+    trigger: {
+      type: 'During',
+      precondition: {
+        type: 'MySelf',
+        characterGroups: ['Green']
+      },
+      duringTrigger: {
+        type: 'EnemyHigh',
+        threshold: {
+          power1: 100000,
+          firstMax: 100000
+        },
+        triggerLimit: 5
+      },
+      duringContent: {
+        type: 'PowerFlipDamage',
+        strength: {
+          power1: 5000,
+          firstMax: 10000
+        }
+      }
+    }
+  }
+];

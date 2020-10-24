@@ -92,7 +92,7 @@ export const ja = {
   ability_description_instant_trigger_kind_skill_invoke:
     '::if !omittable::::triggerPuller::が::end::スキルを発動::if once::::else::する::end::',
   ability_description_instant_trigger_kind_skill_max:
-    '::if !omittable::::triggerPuller::の::end::スキルゲージが最大::if once::::else::になる::end::',
+    '::if !omittable::::triggerPuller::の::end::スキルゲージが100％::if once::::else::溜まる::end::',
   ability_description_instant_trigger_kind_skill_hit:
     '::if !omittable::::triggerPuller::の::end::スキルがヒット::if once::::else::する::end::',
   ability_description_instant_trigger_kind_one_of_enemy_skill_hit:
