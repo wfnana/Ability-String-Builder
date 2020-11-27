@@ -854,5 +854,13 @@ export const ABILITY_DURING_CONTENT_TRANSFORM = {
   AbilityDamage: {
     CommonAbilityContent: 'Character',
     CommonAbilityCharacterContent: 'AbilityDamage'
+  },
+  Guts: {
+    CommonAbilityContent: 'Character',
+    CommonAbilityCharacterContent: 'Guts'
+  },
+  DisguiseHp: {
+    CommonAbilityContent: 'Character',
+    CommonAbilityCharacterContent: 'DisguiseHp'
   }
 };

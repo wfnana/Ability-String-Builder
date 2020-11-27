@@ -566,5 +566,152 @@ export const ABILITY_DURING_TRIGGER_TRANSFORM = {
   SkillGaugeLow: {
     DuringAbilityTriggerKind: 'Character',
     DuringCharacterAbilityTriggerKind: 'SkillGaugeLow'
+  },
+  HpDecrease: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'HpDecrease'
+  },
+  HpIncrease: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'HpIncrease'
+  },
+  ConditionAccumulationCountAttackPointUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'AttackPoint',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountAttackPointDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'AttackPoint',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountDirectDamageUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'DirectDamage',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountDirectDamageDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'DirectDamage',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountSkillDamageUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'SkillDamage',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountSkillDamageDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'SkillDamage',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountResistanceUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountResistanceDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'ElementResistance',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountDamageCut: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'ElementDamageCut',
+    ConditionSign: 'Both'
+  },
+  ConditionAccumulationCountPoison: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'Poison'
+  },
+  ConditionAccumulationCountFeverPointUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'FeverPoint',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountFeverPointDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'FeverPoint',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountStunifyUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'Stunify',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountStunifyDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'Stunify',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountCharacterSlayerUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'CharacterSlayer',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountCharacterSlayerDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'CharacterSlayer',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountStanWinceSlayerUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'PinchSlayer',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountStanWinceSlayerDown: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'PinchSlayer',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountDebuffResistanceUp: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'DebuffResistance'
+  },
+  ConditionAccumulationCountAdditionalDirectAttack: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'AdditionalDirectAttack'
+  },
+  ConditionAccumulationCountPowerFlipDamageDown: {
+    DuringAbilityTriggerKind: 'Battle',
+    DuringBattleAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'PowerFlipDamage',
+    ConditionSign: 'Good'
+  },
+  ConditionAccumulationCountPowerFlipDamageUp: {
+    DuringAbilityTriggerKind: 'Battle',
+    DuringBattleAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'PowerFlipDamage',
+    ConditionSign: 'Bad'
+  },
+  ConditionAccumulationCountSpeedup: {
+    DuringAbilityTriggerKind: 'Battle',
+    DuringBattleAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'Speedup'
+  },
+  ConditionAccumulationCountUnique: {
+    DuringAbilityTriggerKind: 'Character',
+    DuringCharacterAbilityTriggerKind: 'ConditionAccumulation',
+    ConditionTargetKind: 'Unique'
   }
 };

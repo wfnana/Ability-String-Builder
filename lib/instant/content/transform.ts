@@ -1851,5 +1851,111 @@ export const ABILITY_INSTANT_CONTENT_TRANSFORM = {
     InstantAbilityContent: 'Common',
     CommonAbilityContent: 'Character',
     CommonAbilityCharacterContent: 'AbilityDamage'
+  },
+  Guts: {
+    InstantAbilityContent: 'Common',
+    CommonAbilityContent: 'Character',
+    CommonAbilityCharacterContent: 'Guts'
+  },
+  SetCombo: {
+    InstantAbilityContent: 'InstantBattle',
+    InstantAbilityInstantBattleContent: 'SetCombo'
+  },
+  NearestEnemyConditionAttackPoint: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'AttackPoint'
+  },
+  NearestEnemyConditionResistanceAllElement: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementResistance'
+  },
+  NearestEnemyConditionResistanceRed: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementResistance'
+  },
+  NearestEnemyConditionResistanceBlue: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementResistance'
+  },
+  NearestEnemyConditionResistanceYellow: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementResistance'
+  },
+  NearestEnemyConditionResistanceGreen: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementResistance'
+  },
+  NearestEnemyConditionResistanceWhite: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementResistance'
+  },
+  NearestEnemyConditionResistanceBlack: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementResistance'
+  },
+  NearestEnemyConditionDamageCutAllElement: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementDamageCut'
+  },
+  NearestEnemyConditionDamageCutRed: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementDamageCut'
+  },
+  NearestEnemyConditionDamageCutBlue: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementDamageCut'
+  },
+  NearestEnemyConditionDamageCutYellow: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementDamageCut'
+  },
+  NearestEnemyConditionDamageCutGreen: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementDamageCut'
+  },
+  NearestEnemyConditionDamageCutWhite: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementDamageCut'
+  },
+  NearestEnemyConditionDamageCutBlack: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'ElementDamageCut'
+  },
+  NearestEnemyConditionInvincible: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'Invincible'
+  },
+  NearestEnemyConditionRegeneration: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'Regeneration'
+  },
+  NearestEnemyConditionPoison: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'Poison'
+  },
+  NearestEnemyConditionParalysis: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'Paralysis'
+  },
+  NearestEnemyConditionFrozen: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'Frozen'
+  },
+  NearestEnemyConditionCharacterSlayer: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'CharacterSlayer'
+  },
+  NearestEnemyConditionDebuffResistance: {
+    InstantAbilityContent: 'ConditionNearestEnemy',
+    ConditionChangeContent: 'DebuffResistance'
+  },
+  DisguiseHp: {
+    InstantAbilityContent: 'Common',
+    CommonAbilityContent: 'Character',
+    CommonAbilityCharacterContent: 'DisguiseHp'
+  },
+  ConditionUnique: {
+    InstantAbilityContent: 'ConditionCharacter',
+    ConditionChangeContent: 'Unique'
   }
 };

@@ -669,5 +669,13 @@ export const ABILITY_INSTANT_TRIGGER_TRANSFORM = {
   SkillGauge: {
     InstantAbilityTriggerKind: 'Battle',
     InstantBattleAbilityTriggerKind: 'CharacterCount'
+  },
+  OneOfEnemyDamageCount: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'OneOfEnemyCharacterCount'
+  },
+  DamageByAbility: {
+    InstantAbilityTriggerKind: 'Battle',
+    InstantBattleAbilityTriggerKind: 'CharacterCount'
   }
 };
