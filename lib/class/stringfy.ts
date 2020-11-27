@@ -490,6 +490,21 @@ export class Stringfy {
     return String(Number(param3) * Number(param2));
   }
 
+  stringfyMaxAccumulation(param1: string, param2: number | undefined) {
+    if (param2 === 1) {
+      return param1;
+    }
+    return (
+      param1 +
+      this.container.getUiStringWithContext(
+        'ability_description_instant_max_accumulation_count',
+        {
+          count: param2
+        }
+      )
+    );
+  }
+
   stringfyLeaderTrigger(target: Target | undefined): string {
     const conj = this.stringfyConjuctionTriggerLimit(1);
     const str = this.container.getUiStringWithContext(
@@ -545,6 +560,15 @@ export class Stringfy {
       case 'OneOfEnemySkillHit':
         str = this.getWithTriggerPullerAndTimes(
           'ability_description_instant_trigger_kind_one_of_enemy_skill_hit',
+          param4 as TriggerPuller,
+          limit,
+          false,
+          target
+        );
+        break;
+      case 'OneOfEnemyDamageCount':
+        str = this.getWithTriggerPullerAndTimes(
+          'ability_description_instant_trigger_kind_one_of_enemy_damage_count',
           param4 as TriggerPuller,
           limit,
           false,
@@ -935,6 +959,16 @@ export class Stringfy {
           count
         );
         return real + str + conj;
+      case 'EnemyDamage':
+        str = this.getWithTriggerPullerAndTimesAndCount(
+          'ability_description_instant_trigger_kind_damage_by_abiility',
+          param4 as TriggerPuller,
+          limit,
+          false,
+          target,
+          count
+        );
+        return real + str + conj;
     }
     return real + count + str + conj;
   }
@@ -1047,72 +1081,16 @@ export class Stringfy {
   }
 
   stringfyInstantContent(
-    content: Content,
-    isInitialTrigger: boolean,
-    limit: number | undefined,
-    cooltime: number | undefined,
-    notFirst: boolean
+    param1: number | undefined,
+    param2: Content,
+    param3: boolean,
+    param4: number | undefined,
+    param5: boolean
   ): string {
-    const contentkind = content.data.convert('InstantAbilityContent');
-    const prefix = this.stringfyPrefixTriggerLimit(limit, false);
-    let str = '';
-    switch (contentkind) {
-      case 'ConditionCharacter':
-        str =
-          prefix +
-          this.stringfyConditionCharacterContent(
-            content,
-            content,
-            (content.data as InstantContent)?.computeFrame(this.level),
-            (content.data as InstantContent)?.flipLimit,
-            (content.data as InstantContent)?.maxAccumulation,
-            notFirst
-          );
-        break;
-      case 'ConditionBattle':
-        str =
-          prefix +
-          this.stringfyConditionBattleContent(
-            content,
-            (content.data as InstantContent)?.computeFrame(this.level),
-            (content.data as InstantContent)?.flipLimit
-          );
-        break;
-      case 'Common':
-        str = this.stringfyCommonContent(content, limit, notFirst);
-        break;
-      case 'DurationTimeCharacter':
-        str =
-          prefix +
-          this.stringfyDurationTimeCharacterContent(
-            content,
-            content,
-            (content.data as InstantContent)?.computeFrame(this.level),
-            (content.data as InstantContent)?.flipLimit,
-            notFirst
-          );
-        break;
-      case 'InstantCharacter':
-        str = this.stringfyInstantCharacterContent(
-          content,
-          content,
-          isInitialTrigger,
-          limit,
-          notFirst
-        );
-        break;
-      case 'InstantBattle':
-        str = this.stringfyInstantBattleContent(
-          content,
-          isInitialTrigger,
-          limit
-        );
-        break;
-      default:
-        str = '';
-        break;
-    }
-    return str + this.stringfyCooltime(cooltime);
+    return (
+      this.stringfyInstantAbilityContent(param2, param3, param4, param5) +
+      this.stringfyCooltime(param1)
+    );
   }
 
   stringfyInstantCharacterContent(
@@ -1795,6 +1773,28 @@ export class Stringfy {
             threshold
           )
         );
+      case 'SetCombo':
+        if (isInitialTrigger) {
+          return this.stringfyMaxStrengthCount(
+            this.getWithStrengthCount(
+              'ability_description_instant_content_set_combo',
+              threshold
+            ),
+            limit,
+            this.isContinuationInstantBattleContent(param1),
+            threshold
+          );
+        }
+        return (
+          this.stringfyPrefixTriggerLimit(
+            limit,
+            this.isContinuationInstantBattleContent(param1)
+          ) +
+          this.getWithStrengthCount(
+            'ability_description_instant_content_set_combo',
+            threshold
+          )
+        );
       case 'CountUp':
         if (isInitialTrigger) {
           return this.stringfyMaxStrengthCount(
@@ -1815,10 +1815,132 @@ export class Stringfy {
     }
   }
 
+  stringfyInstantAbilityContent(
+    content: Content,
+    isInitialTrigger: boolean,
+    limit: number | undefined,
+    notFirst: boolean
+  ): string {
+    const contentkind = content.data.convert('InstantAbilityContent');
+    const prefix = this.stringfyPrefixTriggerLimit(limit, false);
+    let str = '';
+    switch (contentkind) {
+      case 'ConditionCharacter':
+        str =
+          prefix +
+          this.stringfyConditionCharacterContent(
+            content,
+            content,
+            (content.data as InstantContent)?.computeFrame(this.level),
+            (content.data as InstantContent)?.flipLimit,
+            (content.data as InstantContent)?.maxAccumulation,
+            notFirst
+          );
+        break;
+      case 'ConditionBattle':
+        str =
+          prefix +
+          this.stringfyConditionBattleContent(
+            content,
+            (content.data as InstantContent)?.computeFrame(this.level),
+            (content.data as InstantContent)?.flipLimit
+          );
+        break;
+      case 'Common':
+        str = this.stringfyCommonContent(content, limit, notFirst);
+        break;
+      case 'DurationTimeCharacter':
+        str =
+          prefix +
+          this.stringfyDurationTimeCharacterContent(
+            content,
+            content,
+            (content.data as InstantContent)?.computeFrame(this.level),
+            (content.data as InstantContent)?.flipLimit,
+            notFirst
+          );
+        break;
+      case 'InstantCharacter':
+        str = this.stringfyInstantCharacterContent(
+          content,
+          content,
+          isInitialTrigger,
+          limit,
+          notFirst
+        );
+        break;
+      case 'InstantBattle':
+        str = this.stringfyInstantBattleContent(
+          content,
+          isInitialTrigger,
+          limit
+        );
+        break;
+      case 'NearestEnemyDamage':
+        // TODO: need to double check
+        str =
+          this.getUiString(
+            'ability_description_instant_content_nearest_enemy'
+          ) +
+          prefix +
+          this.stringfyConditionCharacterContent(
+            content,
+            content,
+            (content.data as InstantContent)?.computeFrame(this.level),
+            (content.data as InstantContent)?.flipLimit,
+            (content.data as InstantContent)?.maxAccumulation,
+            true
+          );
+        break;
+      default:
+        str = '';
+        break;
+    }
+    return str;
+  }
+
   stringfyInitialWithoutContinuation(): string {
     return this.getWithTimes(
       'ability_description_instant_trigger_kind_first_flip',
       1
+    );
+  }
+
+  stringfyHpIncreaseTriggeredContent(
+    param1: Content,
+    param2: number | undefined,
+    param3: boolean | undefined,
+    param4: number | undefined
+  ): string {
+    const prefix = this.getSummaryCommonContent(param1);
+    return (
+      prefix +
+      this.container.getUiStringWithContext(
+        'ability_description_during_trigger_kind_hp_increase_detail',
+        {
+          precent: this.stringfyPercentNormal(param4),
+          content: this.stringfyCommonContent(param1, param2, param3)
+        }
+      )
+    );
+  }
+
+  stringfyHpDecreaseTriggeredContent(
+    param1: Content,
+    param2: number | undefined,
+    param3: boolean | undefined,
+    param4: number | undefined
+  ): string {
+    const prefix = this.getSummaryCommonContent(param1);
+    return (
+      prefix +
+      this.container.getUiStringWithContext(
+        'ability_description_during_trigger_kind_hp_decrease_detail',
+        {
+          precent: this.stringfyPercentNormal(param4),
+          content: this.stringfyCommonContent(param1, param2, param3)
+        }
+      )
     );
   }
 
@@ -1947,8 +2069,7 @@ export class Stringfy {
     param1: TriggerPuller | undefined,
     param2: number | undefined,
     param3: boolean,
-    _param4: boolean,
-    param5: Target | undefined
+    param4: Target | undefined
   ): string {
     let target = '';
     let isOmittable = false;
@@ -1956,7 +2077,7 @@ export class Stringfy {
       target = this.stringfyTriggerPuller(param1, true);
       isOmittable = this.isTriggerPullerOmittable(
         param1.convert('AbilityTriggerPullerKind'),
-        param5,
+        param4,
         true
       );
     } else {
@@ -1974,12 +2095,63 @@ export class Stringfy {
     });
   }
 
+  stringfyDuringTriggerHpIncrease(
+    param1: TriggerPuller | undefined,
+    param2: Target | undefined
+  ) {
+    let target = '';
+    let isOmittable = false;
+    if (param1) {
+      target = this.stringfyTriggerPuller(param1, true);
+      isOmittable = this.isTriggerPullerOmittable(
+        param1.convert('AbilityTriggerPullerKind'),
+        param2,
+        true
+      );
+    } else {
+      target = this.getUiString('ability_description_target_ally_all');
+    }
+
+    return this.container.getUiStringWithContext(
+      'ability_description_during_trigger_kind_hp_increase',
+      {
+        triggerPuller: target,
+        omittable: isOmittable
+      }
+    );
+  }
+
+  stringfyDuringTriggerHpDecrease(
+    param1: TriggerPuller | undefined,
+    param2: Target | undefined
+  ) {
+    let target = '';
+    let isOmittable = false;
+    if (param1) {
+      target = this.stringfyTriggerPuller(param1, true);
+      isOmittable = this.isTriggerPullerOmittable(
+        param1.convert('AbilityTriggerPullerKind'),
+        param2,
+        true
+      );
+    } else {
+      target = this.getUiString('ability_description_target_ally_all');
+    }
+
+    return this.container.getUiStringWithContext(
+      'ability_description_during_trigger_kind_hp_decrease',
+      {
+        triggerPuller: target,
+        omittable: isOmittable
+      }
+    );
+  }
+
   stringfyDuringTriggerCondition(
     param1: TriggerPuller | undefined,
     param2: DuringTrigger | InstantTrigger,
     threshold: number | undefined,
-    _param4: boolean,
-    param5: Target | undefined
+    param4: Target | undefined
   ): string {
     let target = '';
     let isOmittable = false;
@@ -1987,7 +2159,7 @@ export class Stringfy {
       target = this.stringfyTriggerPuller(param1, true);
       isOmittable = this.isTriggerPullerOmittable(
         param1.convert('AbilityTriggerPullerKind'),
-        param5,
+        param4,
         true
       );
     } else {
@@ -2002,6 +2174,59 @@ export class Stringfy {
         count: threshold
       }
     );
+  }
+
+  stringfyDuringTriggerAccumulationCondition(
+    param1: TriggerPuller | undefined,
+    param2: DuringTrigger | InstantTrigger,
+    threshold: number | undefined,
+    param4: number | undefined,
+    param5: Target | undefined
+  ): string {
+    let target = '';
+    let isOmittable = false;
+    if (param1) {
+      target = this.stringfyTriggerPuller(param1, true);
+      isOmittable = this.isTriggerPullerOmittable(
+        param1.convert('AbilityTriggerPullerKind'),
+        param5,
+        true
+      );
+    } else {
+      target = this.getUiString('ability_description_target_ally_all');
+    }
+
+    let key = '';
+    if (param2.convert('ConditionTargetKind') === 'Unique') {
+      if (typeof param4 !== 'undefined') {
+        if (param4 === 1) {
+          key =
+            'ability_description_during_trigger_kind_accumulation_unique_condition_high';
+        }
+        key =
+          'ability_description_during_trigger_kind_accumulation_unique_condition_high_count';
+      }
+      key =
+        'ability_description_during_trigger_kind_accumulation_unique_condition_high_count';
+    } else {
+      if (typeof param4 !== 'undefined') {
+        if (param4 === 1) {
+          key =
+            'ability_description_during_trigger_kind_accumulation_condition_high';
+        }
+        key =
+          'ability_description_during_trigger_kind_accumulation_condition_high_count';
+      }
+      key =
+        'ability_description_during_trigger_kind_accumulation_condition_high_count';
+    }
+
+    return this.container.getUiStringWithContext(key, {
+      triggerPuller: target,
+      omittable: isOmittable,
+      condition: this.stringfyCondtionTarget(param2, false),
+      count: threshold
+    });
   }
 
   stringfyDuringTrigger(
@@ -2023,6 +2248,89 @@ export class Stringfy {
       default:
         return '';
     }
+  }
+
+  stringfyDuringContent(
+    param1: DuringTrigger,
+    param2: Content,
+    param3: number | undefined,
+    param4: boolean
+  ): string {
+    const param1kind = param1.convert('DuringAbilityTriggerKind');
+    if (param1kind === 'Character') {
+      const kind = param1.convert('DuringCharacterAbilityTriggerKind');
+      switch (kind) {
+        case 'Hp':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'Condition':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'Barrier':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'ParameterUp':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'SkillGaugeHigh':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'SkillGaugeLow':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'HpDecrease':
+          return this.stringfyHpDecreaseTriggeredContent(
+            param2,
+            param3,
+            param4,
+            param1.computeThreshold()
+          );
+        case 'HpIncrease': {
+          const limit = param1.triggerLimit;
+          const threshold = param1.computeThreshold();
+          if (limit === 0) {
+            if (threshold === 1) {
+              return this.stringfyCommonContent(param2, param3, param4);
+            }
+            return this.stringfyHpIncreaseTriggeredContent(
+              param2,
+              param3,
+              param4,
+              threshold
+            );
+          }
+          return this.stringfyHpIncreaseTriggeredContent(
+            param2,
+            param3,
+            param4,
+            threshold
+          );
+        }
+        case 'ConditionAccumulation':
+          return this.stringfyCommonContent(param2, param3, param4);
+        default:
+          // NOTE: not sure
+          return this.stringfyCommonContent(param2, param3, param4);
+      }
+    }
+    if (param1kind === 'Battle') {
+      const kind = param1.convert('DuringBattleAbilityTriggerKind');
+      switch (kind) {
+        case 'High':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'Low':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'Fever':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'Multiball':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'Condition':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'ParameterUp':
+          return this.stringfyCommonContent(param2, param3, param4);
+        case 'ConditionAccumulation':
+          return this.stringfyCommonContent(param2, param3, param4);
+        default:
+          // NOTE: not sure
+          return this.stringfyCommonContent(param2, param3, param4);
+      }
+    }
+    // NOTE: not sure
+    return this.stringfyCommonContent(param2, param3, param4);
   }
 
   stringfyDuringCharacterTrigger(
@@ -2072,7 +2380,6 @@ export class Stringfy {
               param1,
               param2,
               threshold,
-              false,
               target
             );
           }
@@ -2080,7 +2387,6 @@ export class Stringfy {
             param1,
             param2,
             threshold,
-            false,
             target
           );
         }
@@ -2088,7 +2394,6 @@ export class Stringfy {
           param1,
           param2,
           threshold,
-          false,
           target
         );
       }
@@ -2229,7 +2534,6 @@ export class Stringfy {
               param1,
               threshold,
               true,
-              false,
               target
             );
           }
@@ -2254,7 +2558,49 @@ export class Stringfy {
           param1,
           threshold,
           false,
-          false,
+          target
+        );
+      }
+      case 'HpDecrease': {
+        const limit = param2.triggerLimit;
+        if (limit) {
+          if (limit === 1) {
+            return this.getWithTriggerPullerAndPercent(
+              'ability_description_during_trigger_kind_hp_low',
+              param1,
+              threshold,
+              param3,
+              true,
+              target
+            );
+          }
+          return this.stringfyDuringTriggerHpDecrease(param1, target);
+        }
+        return this.stringfyDuringTriggerHpDecrease(param1, target);
+      }
+      case 'HpIncrease': {
+        const limit = param2.triggerLimit;
+        if (limit) {
+          if (limit === 1) {
+            return this.getWithTriggerPullerAndPercent(
+              'ability_description_during_trigger_kind_hp_high',
+              param1,
+              threshold,
+              param3,
+              true,
+              target
+            );
+          }
+          return this.stringfyDuringTriggerHpIncrease(param1, target);
+        }
+        return this.stringfyDuringTriggerHpIncrease(param1, target);
+      }
+      case 'ConditionAccumulation': {
+        return this.stringfyDuringTriggerAccumulationCondition(
+          param1,
+          param2,
+          threshold,
+          param2.triggerLimit,
           target
         );
       }
@@ -2360,7 +2706,6 @@ export class Stringfy {
               undefined,
               param1,
               threshold,
-              false,
               param3
             );
           }
@@ -2368,7 +2713,6 @@ export class Stringfy {
             undefined,
             param1,
             threshold,
-            false,
             param3
           );
         }
@@ -2376,7 +2720,6 @@ export class Stringfy {
           undefined,
           param1,
           threshold,
-          false,
           param3
         );
       }
@@ -2384,6 +2727,14 @@ export class Stringfy {
         return this.getWithPercent(
           'ability_description_during_trigger_kind_power_flip_damage_up',
           param1.computeThreshold(this.level)
+        );
+      case 'ConditionAccumulation':
+        return this.stringfyDuringTriggerAccumulationCondition(
+          undefined,
+          param1,
+          threshold,
+          param1.triggerLimit,
+          param3
         );
       default:
         return '';
@@ -2701,6 +3052,11 @@ export class Stringfy {
         return this.getUiString(
           'ability_description_condition_target_additional_direct_attack'
         );
+      case 'Unique':
+        return this.getWithUnique(
+          'ability_description_condition_target_unique',
+          0 // TODO: should not be constant
+        );
       default:
         return '';
     }
@@ -2786,6 +3142,24 @@ export class Stringfy {
       );
     }
     return '';
+  }
+
+  stringfyConditionFlipLimitAndFrame(
+    param1: InstantContent | undefined,
+    param2: number | undefined
+  ) {
+    const second = Number(param2) >= 0 ? '' : this.stringfySecondDuring(param2);
+    if (param1) {
+      const limit = param1.flipLimit;
+      if (limit === 1) {
+        return this.getUiString('ability_description_flip_limit_once') + second;
+      }
+      return (
+        this.getWithCount('ability_description_flip_limit_n_times', limit) +
+        second
+      );
+    }
+    return second;
   }
 
   stringfyConditionCharacterContent(
@@ -3013,8 +3387,33 @@ export class Stringfy {
       case 'Speedup':
         // should throw error here
         return '';
+      // TODO: new conditions
+      // case 26:
+      //     _loc8_ = !!param6?method_1("ability_description_condition_content_buff_rejection_minimal"):getWithTarget("ability_description_condition_content_buff_rejection",param1);
+      //     break;
+      //   case 27:
+      //     _loc8_ = !!param6?method_1("ability_description_condition_content_heal_rejection_minimal"):getWithTarget("ability_description_condition_content_heal_rejection",param1);
+      //     break;
+      //   case 28:
+      //     _loc9_ = Number(param2.params[1]);
+      //     _loc14_ = Number(param2.params[0]);
+      //     _loc8_ = !!param6?_loc9_ < Number(package_15361.package_15362.package_15363.package_15364.package_15365.package_15366.package_15367.package_15368.package_15369.package_15370.package_15371.package_15372.package_15373.package_15374.package_15375.int.method_404(0))?getConditionWithPercent2("ability_description_condition_content_adversity_debuff_minimal",_loc14_,_loc9_,param5):getConditionWithPercent2("ability_description_condition_content_adversity_buff_minimal",_loc14_,_loc9_,param5):_loc9_ < Number(package_15361.package_15362.package_15363.package_15364.package_15365.package_15366.package_15367.package_15368.package_15369.package_15370.package_15371.package_15372.package_15373.package_15374.package_15375.int.method_404(0))?getConditionWithTargetAndPercent2("ability_description_condition_content_adversity_debuff",param1,_loc14_,_loc9_,param5):getConditionWithTargetAndPercent2("ability_description_condition_content_adversity_buff",param1,_loc14_,_loc9_,param5);
+      //     break;
+      //   case 29:
+      //     _loc10_ = int(param2.params[0]);
+      //     _loc8_ = !!param6?getConditionWithStrengthCount("ability_description_condition_content_guts_minimal",_loc10_,param5):getConditionWithTargetAndStrengthCount("ability_description_condition_content_guts",param1,_loc10_,param5);
+      //     break;
+      //   case 30:
+      //     _loc10_ = int(param2.params[1]);
+      //     _loc11_ = int(param2.params[0]);
+      //     _loc8_ = !!param6?getConditionWithUnique("ability_description_condition_content_unique_minimal",_loc11_,_loc10_):getConditionWithTargetAndUnique("ability_description_condition_content_unique",param1,_loc11_,_loc10_);
     }
-    return this.stringfyFlipLimitAndFrame(limit, frame) + str;
+    return (
+      this.stringfyConditionFlipLimitAndFrame(
+        (param1 as never) as InstantContent,
+        frame
+      ) + str
+    );
   }
 
   stringfyConditionBattleContent(
@@ -3096,6 +3495,17 @@ export class Stringfy {
           param1.data.computeStrength(this.level)
         );
         break;
+      // TODO: new conditions
+      // case 26:
+      //     throw new package_13891.package_13892.package_13893.package_13894.package_13895.package_13896.package_13897.package_13898.package_13899.package_13900.package_13901.package_13902.package_13903.package_13904.package_13905.int(10010,Std.string(param1) + "はキャラクターに対するコンディションです。");
+      //   case 27:
+      //     throw new package_13891.package_13892.package_13893.package_13894.package_13895.package_13896.package_13897.package_13898.package_13899.package_13900.package_13901.package_13902.package_13903.package_13904.package_13905.int(10010,Std.string(param1) + "はキャラクターに対するコンディションです。");
+      //   case 28:
+      //     throw new package_13891.package_13892.package_13893.package_13894.package_13895.package_13896.package_13897.package_13898.package_13899.package_13900.package_13901.package_13902.package_13903.package_13904.package_13905.int(10010,Std.string(param1) + "はキャラクターに対するコンディションです。");
+      //   case 29:
+      //     throw new package_13891.package_13892.package_13893.package_13894.package_13895.package_13896.package_13897.package_13898.package_13899.package_13900.package_13901.package_13902.package_13903.package_13904.package_13905.int(10010,Std.string(param1) + "はキャラクターに対するコンディションです。");
+      //   case 30:
+      //     throw new package_13891.package_13892.package_13893.package_13894.package_13895.package_13896.package_13897.package_13898.package_13899.package_13900.package_13901.package_13902.package_13903.package_13904.package_13905.int(10010,Std.string(param1) + "はキャラクターに対するコンディションです。");
     }
     return this.stringfyFlipLimitAndFrame(limit, frame) + str;
   }
@@ -3609,6 +4019,50 @@ export class Stringfy {
           true,
           threshold
         );
+      case 'Guts':
+        if (notFirst) {
+          return this.stringfyMaxStrengthPercent(
+            this.getWithPercent(
+              'ability_description_common_content_guts_minimal',
+              threshold
+            ),
+            limit,
+            true,
+            threshold
+          );
+        }
+        return this.stringfyMaxStrengthPercent(
+          this.getWithTargetAndPercent(
+            'ability_description_common_content_guts',
+            param1,
+            threshold
+          ),
+          limit,
+          true,
+          threshold
+        );
+      case 'DisguiseHp':
+        if (notFirst) {
+          return this.stringfyMaxStrengthPercent(
+            this.getWithPercent(
+              'ability_description_common_content_disguise_hp_minimal',
+              threshold
+            ),
+            limit,
+            true,
+            threshold
+          );
+        }
+        return this.stringfyMaxStrengthPercent(
+          this.getWithTargetAndPercent(
+            'ability_description_common_content_disguise_hp',
+            param1,
+            threshold
+          ),
+          limit,
+          true,
+          threshold
+        );
       default:
         return '';
     }
@@ -4010,9 +4464,18 @@ export class Stringfy {
         return false;
       case 'CountUp':
         return false;
+      case 'SetCombo':
+        return false;
       default:
         return false;
     }
+  }
+
+  getWithUnique(param1: string, param2: number | undefined): string {
+    return this.container.getUiStringWithContext(param1, {
+      // TODO: need to compute name string
+      name: param2
+    });
   }
 
   getWithTriggerPullerAndTimesAndCount(
@@ -4333,34 +4796,6 @@ export class Stringfy {
     });
   }
 
-  getWithParameterReferenceTargetAndPercent(
-    id: string,
-    parameter: string,
-    param3: Content,
-    threshold: number | undefined
-  ): string {
-    return this.container.getUiStringWithContext(id, {
-      target: this.stringfyAbilityTarget(param3),
-      parameter: this.stringfyParameterReference(parameter),
-      percent: this.stringfyStrengthPercent(threshold),
-      percent_up_down: this.stringfyStrengthPercentUpDown(threshold),
-      times: this.stringfyStrengthTimes(threshold)
-    });
-  }
-
-  getWithParameterReferenceAndPercent(
-    id: string,
-    parameter: string,
-    threshold: number | undefined
-  ): string {
-    return this.container.getUiStringWithContext(id, {
-      parameter: this.stringfyParameterReference(parameter),
-      percent: this.stringfyStrengthPercent(threshold),
-      percent_up_down: this.stringfyStrengthPercentUpDown(threshold),
-      times: this.stringfyStrengthTimes(threshold)
-    });
-  }
-
   getWithIndex(id: string, param2: number): string {
     return this.container.getUiStringWithContext(id, {
       index: param2
@@ -4507,6 +4942,149 @@ export class Stringfy {
     });
   }
 
+  getSummaryCommonContent(param1: Content): string {
+    const param1kind = param1.data.convert('CommonAbilityContent');
+    if (param1kind === 'Battle') {
+      const kind = param1.data.convert('CommonAbilityBattleContent');
+      switch (kind) {
+        case 'PowerFlipDamage':
+          return this.getWithPercent(
+            'ability_description_common_content_power_flip_damage_summary',
+            param1.data.computeStrength()
+          );
+        case 'PowerFlipLv1Damage':
+          return this.getWithPercent(
+            'ability_description_common_content_power_flip_damage_summary',
+            param1.data.computeStrength()
+          );
+        case 'PowerFlipLv2Damage':
+          return this.getWithPercent(
+            'ability_description_common_content_power_flip_damage_summary',
+            param1.data.computeStrength()
+          );
+        case 'PowerFlipLv3Damage':
+          return this.getWithPercent(
+            'ability_description_common_content_power_flip_damage_summary',
+            param1.data.computeStrength()
+          );
+        case 'FeverTime':
+          return this.getWithPercent(
+            'ability_description_common_content_fever_time_summary',
+            param1.data.computeStrength()
+          );
+        case 'PowerFlipComboCountDown':
+          // new Error()
+          return '';
+        case 'Speedup':
+          return this.getWithPercent(
+            'ability_description_common_content_speedup_summary',
+            param1.data.computeStrength()
+          );
+        default:
+          return '';
+      }
+    }
+    if (param1kind === 'Character') {
+      const kind = param1.data.convert('CommonAbilityBattleContent');
+      switch (kind) {
+        case 'AttackPoint':
+          return this.getWithPercent(
+            'ability_description_common_content_attack_summary',
+            param1.data.computeStrength()
+          );
+        case 'DirectDamage':
+          return this.getWithPercent(
+            'ability_description_common_content_direct_damage_summary',
+            param1.data.computeStrength()
+          );
+        case 'SkillDamage':
+          return this.getWithPercent(
+            'ability_description_common_content_skill_damage_summary',
+            param1.data.computeStrength()
+          );
+        case 'AbilityDamage':
+          return this.getWithPercent(
+            'ability_description_common_content_ability_damage_summary',
+            param1.data.computeStrength()
+          );
+        case 'SkillGaugeCharging':
+          return this.getWithPercent(
+            'ability_description_common_content_skill_gauge_chaging_summary',
+            param1.data.computeStrength()
+          );
+        case 'ElementResistance':
+          return this.getWithPercent(
+            'ability_description_common_content_element_resistance_summary',
+            param1.data.computeStrength()
+          );
+        case 'ElementDamageCut':
+          return '';
+        case 'FeverPoint':
+          return this.getWithPercent(
+            'ability_description_common_content_fever_point_summary',
+            param1.data.computeStrength()
+          );
+        case 'Stunify':
+          return this.getWithPercent(
+            'ability_description_common_content_stunify_summary',
+            param1.data.computeStrength()
+          );
+        case 'CharacterSlayer':
+          return this.getWithPercent(
+            'ability_description_common_content_character_slayer_summary',
+            param1.data.computeStrength()
+          );
+        case 'PinchSlayer':
+          return this.getWithPercent(
+            'ability_description_common_content_stun_wince_slayer_summary',
+            param1.data.computeStrength()
+          );
+        case 'DebuffResistance':
+          return this.getWithPercent(
+            'ability_description_common_content_debuf_resistance_summary',
+            param1.data.computeStrength()
+          );
+        case 'EaseOfHeal':
+          return this.getWithPercent(
+            'ability_description_common_content_ease_of_heal_summary',
+            param1.data.computeStrength()
+          );
+        case 'Scapegoat':
+          return '';
+        case 'AdditionalDirectAttack':
+          return '';
+        case 'PoisonStrength':
+          return this.getWithPercent(
+            'ability_description_common_content_poison_strength_summary',
+            param1.data.computeStrength()
+          );
+        case 'ConditionPrevent':
+          return '';
+        case 'ConditionSlayer':
+          return this.getWithPercent(
+            'ability_description_common_content_condition_slayer_summary',
+            param1.data.computeStrength()
+          );
+        case 'ConditionShare':
+          return '';
+        case 'SecondSkillGauge':
+          return this.getWithPercent(
+            'ability_description_common_content_second_skill_gauge_summary',
+            param1.data.computeStrength()
+          );
+        case 'ResistanceToConditionEnemy':
+          return '';
+        case 'Guts':
+          return '';
+        case 'DisguiseHp':
+          return '';
+        default:
+          return '';
+      }
+    }
+    return '';
+  }
+
   getPartyConditionTarget(
     id: string,
     param2: InstantContent | DuringContent | InstantTrigger | DuringTrigger
@@ -4525,6 +5103,13 @@ export class Stringfy {
   getContentDuringTriggerLimit(param1: DuringTrigger): number | undefined {
     return param1.triggerLimit;
   }
+
+  // TODO: getConditionWithUnique
+  // getConditionWithUnique(): string {
+  //   return this.stringfyMaxAccumulation()
+  // }
+
+  // TODO: getConditionWithTargetAndUnique
 
   getContentCooltime(param1: InstantTrigger): number | undefined {
     const kind = param1.convert('InstantAbilityTriggerKind');
@@ -4561,4 +5146,32 @@ export class Stringfy {
         return false;
     }
   }
+
+  // getWithParameterReferenceTargetAndPercent(
+  //   id: string,
+  //   parameter: string,
+  //   param3: Content,
+  //   threshold: number | undefined
+  // ): string {
+  //   return this.container.getUiStringWithContext(id, {
+  //     target: this.stringfyAbilityTarget(param3),
+  //     parameter: this.stringfyParameterReference(parameter),
+  //     percent: this.stringfyStrengthPercent(threshold),
+  //     percent_up_down: this.stringfyStrengthPercentUpDown(threshold),
+  //     times: this.stringfyStrengthTimes(threshold)
+  //   });
+  // }
+
+  // getWithParameterReferenceAndPercent(
+  //   id: string,
+  //   parameter: string,
+  //   threshold: number | undefined
+  // ): string {
+  //   return this.container.getUiStringWithContext(id, {
+  //     parameter: this.stringfyParameterReference(parameter),
+  //     percent: this.stringfyStrengthPercent(threshold),
+  //     percent_up_down: this.stringfyStrengthPercentUpDown(threshold),
+  //     times: this.stringfyStrengthTimes(threshold)
+  //   });
+  // }
 }

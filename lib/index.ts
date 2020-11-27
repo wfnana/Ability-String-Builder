@@ -37,11 +37,28 @@ export class AbilityStringBuilder {
     this.stringify = new Stringfy(this.container, this.level);
   }
 
+  stringfyWithoutJoin(param1: ResultMap): Array<string> {
+    const result: Array<string> = [];
+
+    Array.from(param1.entries()).forEach(([key, data]) => {
+      let str = '';
+      if (key instanceof Instant) {
+        str = this.stringfyInstant(data);
+      } else if (key instanceof During) {
+        str = this.stringfyDuring(data);
+      } else if (key instanceof Opening) {
+        str = this.stringfyOpening(key);
+      }
+      result.push(str);
+    });
+    return result;
+  }
+
   stringfyOpening(param1: Opening): string {
     return this.stringify.stringfyOpening(param1);
   }
 
-  stringfyInstant(param1: ContentMap, param2: string): string {
+  stringfyInstant(param1: ContentMap): string {
     const result = [] as Array<string>;
     const stringify = this.stringify;
     const contents = Array.from(param1.keys());
@@ -75,10 +92,10 @@ export class AbilityStringBuilder {
             post = stringify.stringfyInitialWithoutContinuation();
           }
           const result = stringify.stringfyInstantContent(
+            cooltime,
             content,
             isInitial,
             limit,
-            cooltime,
             notFirst
           );
           contentResult.push(result);
@@ -102,13 +119,13 @@ export class AbilityStringBuilder {
       precondition.length === 0 &&
       trigger.length === 0
     ) {
-      delimiterKey = param2;
+      delimiterKey = 'ability_description_delimiter';
     }
     const delimiter = stringify.getUiString(delimiterKey);
     return unisonable + precondition + trigger + result.join(delimiter);
   }
 
-  stringfyDuring(param1: ContentMap, param2: string): string {
+  stringfyDuring(param1: ContentMap): string {
     const result = [] as Array<string>;
     const stringify = this.stringify;
     const contents = Array.from(param1.keys());
@@ -149,29 +166,18 @@ export class AbilityStringBuilder {
 
     let delimiterKey = 'ability_description_delimiter_content';
     if (unisonable.length === 0 && precondition.length === 0) {
-      delimiterKey = param2;
+      delimiterKey = 'ability_description_delimiter';
     }
     const delimiter = stringify.getUiString(delimiterKey);
     return unisonable + precondition + result.join(delimiter);
   }
 
   stringfy(param1: ResultMap, param2 = false): string {
-    const result = [] as Array<string>;
     const newline = param2
       ? 'ability_description_delimiter_newline'
       : 'ability_description_delimiter';
 
-    Array.from(param1.entries()).forEach(([key, data]) => {
-      let str = '';
-      if (key instanceof Instant) {
-        str = this.stringfyInstant(data, newline);
-      } else if (key instanceof During) {
-        str = this.stringfyDuring(data, newline);
-      } else if (key instanceof Opening) {
-        str = this.stringfyOpening(key);
-      }
-      result.push(str);
-    });
+    const result = this.stringfyWithoutJoin(param1);
 
     return result.join(this.container.getUiString(newline));
   }
